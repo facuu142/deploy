@@ -3,9 +3,9 @@ package com.c1646njava.tuvivienda.models.user.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public record RequestLogin(@NotBlank(message = "El correo electrónico es obligatorio")
-                           @Email(message = "El correo electrónico debe ser válido")
+public record RequestLogin(@NotBlank(message = "Email is required")
+                           @Email(message = "Email must be valid")
                            String email,
-                           @NotBlank(message = "La contraseña es obligatoria")
+                           @NotBlank(message = "Password is required")
                            String password) {
 }

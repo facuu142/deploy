@@ -10,12 +10,12 @@ import javax.validation.constraints.Size;
 public record ResponseUser(
         Long id,
 
-        @NotBlank(message = "El nombre es obligatorio")
-        @Size(min = 3, max = 50, message = "El nombre debe tener entre 3 y 50 caracteres")
+        @NotBlank(message = "The name is required")
+        @Size(min = 3, max = 50, message = "The name must be between 3 and 50 characters")
         String name,
 
-        @NotBlank(message = "El correo electrónico es obligatorio")
-        @Email(message = "El correo electrónico debe ser válido")
+        @NotBlank(message = "Email is required")
+        @Email(message = "Email must be valid")
         String email,
 
         String country,
