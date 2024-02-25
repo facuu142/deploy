@@ -55,6 +55,7 @@ public class UserServiceImp implements UserService {
         return null;
     }
 
+
     @Override
     public void validateUserRequest(RequestUser requestUser) {
         String name = requestUser.name();
@@ -82,4 +83,5 @@ public class UserServiceImp implements UserService {
             throw new IllegalArgumentException("The user must have a country");
         }
     }
+
 }
