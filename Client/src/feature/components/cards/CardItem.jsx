@@ -8,7 +8,7 @@ import { CiStar } from "react-icons/ci";
 
 const CardItem = () => {
   return (
-    <div className="bg-blue-700 lg:w-1/5 relative w-1/2 md:w-1/3 rounded overflow-hidden m-2">
+    <div className="bg-white shadow lg:w-1/5 relative w-1/2 md:w-1/3 rounded overflow-hidden m-2">
      <a href="./id" >
       <div >
         {/* IMAGE RESOURCE */}

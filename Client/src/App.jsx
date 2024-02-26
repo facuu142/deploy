@@ -7,13 +7,13 @@ import CardItem from "./feature/components/cards/CardItem";
 function App() {
 
   return (
-    <div className="bg-blue-300 w-full h-full flex flex-col">
-      <div className="w-full">
+    <div className="w-full h-full flex flex-col">
+      <div className="w-full z-20">
         <NavBar />
         <SideBar />
       </div>
 
-      <div className="w-full mt-20">
+      <div className="w-full">
         <SearchBar />
         <CardItem />
       </div>

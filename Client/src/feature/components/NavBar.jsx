@@ -39,16 +39,16 @@ const NavBar = () => {
   return (
     <>
       <nav
-        className={`bg-blue-700 absolute top-0 justify-between right-0 w-full h-12vh flex p-3 pr-3 pl-5 z-60`}
+        className={`bg-white top-0 justify-between right-0 w-full h-12vh flex p-3 pr-3 pl-5 z-60 shadow-lg`}
       >
         <section className="flex items-center">
           <a href="./" className="flex">
-          <img className="size-12 flex text-blue-300" src={logo} alt="Your SVG" />
-            <h1 className="md:text-xl">
+          <img className="size-12" src={logo} alt="tuvivienda logo"/>
+            {/* <h1 className="md:text-xl">
               <span className={`text-center text-blue-300 invisible md:visible top-5 pl-4`}>
                 TUVIVIENDA.com
               </span>
-            </h1>
+            </h1> */}
           </a>
         </section>
         <section className="flex items-center rounded-full gap-4 justify-center">
