@@ -2,9 +2,9 @@ import React from "react";
 
 const SearchBar = () => {
   return (
-    <div className="w-full flex bg-gray-100 py-4 justify-center items-center space-x-4">
-      <form className="w-auto grid grid-cols-5 justify-center items-center space-x-2">
-        {/* FILTER BY TYPE */}
+    <div className="w-full md:flex bg-gray-100 py-4 justify-center items-center md:space-x-4 px-2 space-y-2 md:space-y-0">
+      <form className="w-auto md:grid md:grid-cols-5 justify-center items-center md:space-x-2 space-y-2 md:space-y-0">
+        {/* SEARCH BY TYPE */}
         <article className="w-auto md:mb-0">
           <article className="flex relative">
             <select
@@ -27,7 +27,7 @@ const SearchBar = () => {
             </article>
           </article>
         </article>
-        {/* FILTER BY STATUS */}
+        {/* SEARCH BY STATUS */}
         <article className="w-auto md:mb-0">
           <article className="flex relative">
             <select
@@ -91,8 +91,8 @@ const SearchBar = () => {
       </form>
 
       {/* PUBLISH PROPERTY */}
-      <button className="px-4 py-3 rounded-md bg-cyan-700 text-white">
-        Publicar Inmueble
+      <button className="px-4 py-3 rounded-md bg-cyan-700 text-white w-full md:w-auto">
+        Publicar
       </button>
     </div>
   );

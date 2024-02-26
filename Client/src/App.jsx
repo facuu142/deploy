@@ -15,7 +15,14 @@ function App() {
 
       <div className="w-full">
         <SearchBar />
-        <CardItem />
+        <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2">
+          <CardItem />
+          <CardItem />
+          <CardItem />
+          <CardItem />
+          <CardItem />
+          <CardItem />
+        </div>
       </div>
     </div>
   );

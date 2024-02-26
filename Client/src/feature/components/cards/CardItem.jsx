@@ -8,7 +8,7 @@ import { CiStar } from "react-icons/ci";
 
 const CardItem = () => {
   return (
-    <div className="bg-white shadow lg:w-1/5 relative w-1/2 md:w-1/3 rounded overflow-hidden m-2">
+    <div className="bg-white shadow relative rounded overflow-hidden m-2">
      <a href="./id" >
       <div >
         {/* IMAGE RESOURCE */}
@@ -19,12 +19,14 @@ const CardItem = () => {
         />
         {/* LIKE BUTTON */}
         <BiLike
+          onClick={() => console.log("Property liked!")}
           style={{ color: "#ffffff", fontSize: "1.5rem" }}
           className="absolute top-0 right-0 m-2"
         />
 
         {/* STARS */}
         <CiStar
+          onClick={() => console.log("Property stars!")}
           style={{ color: "#ffffff", fontSize: "1.5rem" }}
           className="absolute top-0 left-0 m-2"
         />
@@ -39,7 +41,7 @@ const CardItem = () => {
           className="inline-block bg-gray-200 rounded-full 
         px-1 py-1 text-sm font-semibold text-gray-700 text-center"
         >
-          Publicaciones más vistas.
+          Contactar
         </span>
       </div>
       </a>
