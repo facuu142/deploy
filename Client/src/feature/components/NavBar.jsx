@@ -39,7 +39,7 @@ const NavBar = () => {
   return (
     <>
       <nav
-        className={`bg-white top-0 justify-between right-0 w-full h-12vh flex p-3 pr-3 pl-5 z-60 shadow-lg`}
+        className={`bg-white sticky top-0 justify-between right-0 w-full h-12vh flex p-3 pr-3 pl-5 z-40 shadow-lg`}
       >
         <section className="flex items-center">
           <a href="./" className="flex">

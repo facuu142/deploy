@@ -2,7 +2,7 @@ import React from "react";
 
 const SearchBar = () => {
   return (
-    <div className="w-full md:flex bg-gray-100 py-4 justify-center items-center md:space-x-4 px-2 space-y-2 md:space-y-0">
+    <div className="w-full sticky md:flex bg-gray-100 py-4 justify-center items-center md:space-x-4 px-2 space-y-2 md:space-y-0">
       <form className="w-auto md:grid md:grid-cols-5 justify-center items-center md:space-x-2 space-y-2 md:space-y-0">
         {/* SEARCH BY TYPE */}
         <article className="w-auto md:mb-0">

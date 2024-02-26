@@ -16,7 +16,7 @@ const SideBar = () => {
 
   return (
     <aside
-      className={`fixed bg-blue-300 rounded z-10 bg-white top-[10vh] "translate-x-full" right-0 z-40 md:w-2/5 lg:w-1/4 w-10/12 h-screen shadow-lg duration-500 p-4 transition-transform ${
+      className={`fixed bg-blue-300 rounded z-50 bg-white top-[10vh] "translate-x-full" right-0 z-40 md:w-2/5 lg:w-1/4 w-10/12 h-screen shadow-lg duration-500 p-4 transition-transform ${
         homeHookData.sidebarVisible ? "" : "translate-x-full"
       }`}
     >
