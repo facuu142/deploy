@@ -34,7 +34,7 @@ const navItems = [
 ];
 
 const NavBar = () => {
-  const { handlerOpenSidebar } = useContext(HomeContext);
+  const { homeHookData } = useContext(HomeContext);
 
   return (
     <>
@@ -59,7 +59,7 @@ const NavBar = () => {
                 to={`/${item.name}`}
                 className=" text-blue-300 cursor-pointer"
                 name={item.name}
-                onClick={handlerOpenSidebar}
+                onClick={homeHookData.handlerOpenSidebar}
               >
                 <picture>{item.icon}</picture>
               </Link>

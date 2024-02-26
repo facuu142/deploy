@@ -12,18 +12,18 @@ import { HomeContext } from "../../context/HomeContext";
 import RegisterForm from "./forms/RegisterForm";
 
 const SideBar = () => {
-  const {sidebarVisible, handlerCloseSideBar} = useContext(HomeContext);
+  const { homeHookData } = useContext(HomeContext);
 
   return (
     <aside
       className={`fixed bg-blue-300 rounded z-10 bg-white top-[10vh] "translate-x-full" right-0 z-40 md:w-2/5 lg:w-1/4 w-10/12 h-screen shadow-lg duration-500 p-4 transition-transform ${
-        sidebarVisible ? "" : "translate-x-full"
+        homeHookData.sidebarVisible ? "" : "translate-x-full"
       }`}
     >
       {/* CLOSE BUTTON */}
       <button
         className="bg-blue-300 absolute top-2 rounded-full bg-gray-200 z-10"
-        onClick={handlerCloseSideBar}
+        onClick={homeHookData.handlerCloseSideBar}
       >
         <IoCloseCircleOutline style={{fontSize:'1.5rem', zIndex:'0'}}/>
       </button>

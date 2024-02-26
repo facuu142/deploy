@@ -8,7 +8,7 @@ const initialLoginForm = {
 };
 
 const LoginForm = () => {
-  const { handlerRegisterOpen, handlerLoginUser } = useContext(HomeContext);
+  const { homeHookData, userHookData } = useContext(HomeContext);
   const [loginForm, setLoginForm] = useState(initialLoginForm);
   const { email, password } = loginForm;
 
@@ -27,7 +27,7 @@ const LoginForm = () => {
     console.log("user data: ", loginForm)
 
     if (!email || !password) console.log("Los campos no deben ir vacios!");
-    else handlerLoginUser(loginForm);
+    else userHookData.handlerLoginUser(loginForm);
   };
 
   return (
@@ -96,7 +96,7 @@ const LoginForm = () => {
           <a
             className="text-sky-500 hover:text-#fff"
             href="#"
-            onClick={handlerRegisterOpen}
+            onClick={homeHookData.handlerRegisterOpen}
           >
             Registrarme.
           </a>
