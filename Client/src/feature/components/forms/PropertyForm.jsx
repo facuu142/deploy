@@ -6,59 +6,71 @@ const initPropertyData = {
   description: "",
   type: "Casa",
   bedrooms: 0,
+  bathrooms: 0,
   address: "",
-  views: 0,
   price: 0,
-  comments: "",
   status: true,
 };
 
-const initialErrors = {};
-
 const PropertyForm = () => {
   // fields property
-  const [property, setProperty] = useState(initPropertyData);
+  const [propertyForm, setPropertyForm] = useState(initPropertyData);
   const {
     name,
     description,
     type,
     bedrooms,
+    bathrooms,
     address,
-    views,
     price,
-    comments,
-    status,
-  } = property;
+  } = propertyForm;
 
   // error validation
-  const [errors, setErrors] = useState(initialErrors);
+  const [errors, setErrors] = useState({});
 
-  const onSubmit = () => {
-    console.log("Still working!!!");
+  const isValidated = () => {
+    const error = {}
+    const emptyInputs = Object.keys(propertyForm).filter(
+      (val) => propertyForm[val] === "" || propertyForm[val] === 0
+    );
+
+    console.log("empty property inputs: ", emptyInputs);
+
+    
+    emptyInputs.map((val) => {
+      error[val] = `El campo ${val} no puede ir vacio`
+    });
+
+    setErrors(error)
+
+    if(emptyInputs.length > 0) return false
+
+    return true
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    if(isValidated()) console.log("It should do something with this data: ", propertyForm)
   };
 
   const onInputChange = ({ target }) => {
     const { name, value } = target;
-    setProperty({
-      ...property,
+    setPropertyForm({
+      ...propertyForm,
       [name]: value,
     });
   };
 
   return (
-    <div>
-      <form
-        onSubmit={onSubmit}
-        className="bg-white flex flex-col"
-      >
+      <form onSubmit={onSubmit} className="bg-white flex flex-col px-4">
         {/* IMAGE */}
         <section className="border-dotted border-2 border-cyan-900 w-full h-20 flex items-center justify-center">
-            <MdAddAPhoto style={{fill: "gray", fontSize: "1.5rem"}}/>
+          <MdAddAPhoto style={{ fill: "gray", fontSize: "1.5rem" }} />
         </section>
 
         {/* PROPERTY NAME */}
         <section className="lg:mb-2">
-          <article className="w-full px-3 mb-6 md:mb-0">
+          <article className="w-full mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-first-name"
@@ -68,7 +80,7 @@ const PropertyForm = () => {
 
             <input
               className={`appearance-none block w-full bg-gray-200 text-gray-700 ${
-                errors.firstName && "border border-red-500"
+                errors.name && "border border-red-500"
               } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
               id="grid-first-name"
               name="name"
@@ -77,106 +89,133 @@ const PropertyForm = () => {
               value={name}
               onChange={onInputChange}
             />
-            {errors.firstName && (
-              <p className="text-red-500 text-xs italic">{errors.firstName}</p>
+            {errors.name && (
+              <p className="text-red-500 text-xs italic">{errors.name}</p>
             )}
           </article>
 
           {/* DESCRIPTION */}
-          <article className="w-full px-3">
+          <article className="w-full">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-last-name"
+              htmlFor="grid-description"
             >
               Descripción
             </label>
             <textarea
               className={`appearance-none block w-full bg-gray-200 text-gray-700 ${
-                errors.lastName && "border border-red-500"
+                errors.description && "border border-red-500"
               } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-              id="grid-last-name"
+              id="grid-description"
               name="description"
               placeholder="Agrega comentarios"
               type="text"
-              value={address}
+              value={description}
               onChange={onInputChange}
             />
-            {errors.lastName && (
-              <p className="text-red-500 text-xs italic">{errors.lastName}</p>
+            {errors.description && (
+              <p className="text-red-500 text-xs italic">{errors.description}</p>
             )}
           </article>
 
-          <article className="w-full px-3">
+          {/* ADDRESS */}
+          <article className="w-full">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-last-name"
+              htmlFor="grid-address"
             >
-              Direccion
+              Dirección
             </label>
             <input
               className={`appearance-none block w-full bg-gray-200 text-gray-700 ${
-                errors.lastName && "border border-red-500"
+                errors.address && "border border-red-500"
               } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-              id="grid-last-name"
+              id="grid-address"
               name="address"
               placeholder="Direccion"
               type="text"
               value={address}
               onChange={onInputChange}
             />
-            {errors.lastName && (
-              <p className="text-red-500 text-xs italic">{errors.lastName}</p>
-            )}
-          </article>
-
-          <article className="w-full px-3">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-last-name"
-            >
-              ¿Cuantas habitaciones?
-            </label>
-            <input
-              className={`appearance-none block w-full bg-gray-200 text-gray-700 ${
-                errors.lastName && "border border-red-500"
-              } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-              id="grid-last-name"
-              name="bedrooms"
-              placeholder="Habitaciones"
-              type="number"
-              value={address}
-              onChange={onInputChange}
-            />
-            {errors.lastName && (
-              <p className="text-red-500 text-xs italic">{errors.lastName}</p>
+            {errors.address && (
+              <p className="text-red-500 text-xs italic">{errors.address}</p>
             )}
           </article>
         </section>
-        {/* PROPERTY ADDRESS & TYPE */}
-        <section className="grid grid-cols-2">
-          <article className="w-full px-3">
+
+        {/* ROOMS */}
+        <section className="flex space-x-2">
+          <article className="w-full">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-password"
+              htmlFor="grid-bedrooms"
+            >
+              Habitaciones
+            </label>
+            <input
+              className={`appearance-none block w-full bg-gray-200 text-gray-700 ${
+                errors.bedrooms && "border border-red-500"
+              } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
+              id="grid-bedrooms"
+              name="bedrooms"
+              placeholder="0"
+              type="number"
+              value={bedrooms}
+              onChange={onInputChange}
+            />
+            {errors.bedrooms && (
+              <p className="text-red-500 text-xs italic">{errors.bedrooms}</p>
+            )}
+          </article>
+
+          <article className="w-full">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="grid-bathrooms"
+            >
+              Baños
+            </label>
+            <input
+              className={`appearance-none block w-full bg-gray-200 text-gray-700 ${
+                errors.bathrooms && "border border-red-500"
+              } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
+              id="grid-bathrooms"
+              name="bathrooms"
+              placeholder="0"
+              type="number"
+              value={bathrooms}
+              onChange={onInputChange}
+            />
+            {errors.bathrooms && (
+              <p className="text-red-500 text-xs italic">{errors.bathrooms}</p>
+            )}
+          </article>
+        </section>
+        {/* PROPERTY COST & TYPE */}
+        <section className="flex space-x-2">
+          <article className="w-full">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="grid-price"
             >
               Precio
             </label>
             <input
               className={`appearance-none block w-full bg-gray-200 text-gray-700 ${
-                errors.email && "border border-red-500"
+                errors.price && "border border-red-500"
               } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-              id="grid-password"
+              id="grid-price"
               name="price"
               placeholder="Precio"
               type="number"
               value={price}
               onChange={onInputChange}
             />
-            {errors.email && (
-              <p className="text-red-500 text-xs italic">{errors.email}</p>
+            {errors.price && (
+              <p className="text-red-500 text-xs italic">{errors.price}</p>
             )}
           </article>
-          <article className="w-full px-3 mb-6 md:mb-0">
+          <article className="w-full mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-type"
@@ -210,14 +249,13 @@ const PropertyForm = () => {
 
         {/* CREATE PROPERTY */}
         <section className="w-full">
-          <article className="lg:right-0 mx-4">
-            <button className="w-full p-3 bg-sky-500 text-white rounded md:h-12">
+          <article className="lg:right-0">
+            <button type="submit" className="w-full p-3 bg-sky-500 text-white rounded md:h-12">
               Crear
             </button>
           </article>
         </section>
       </form>
-    </div>
   );
 };
 

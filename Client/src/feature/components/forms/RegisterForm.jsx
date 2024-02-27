@@ -12,15 +12,6 @@ const initialRegisterData = {
   country: "Argentina",
 };
 
-const initialErrors = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  password2: "",
-  country: "",
-};
-
 const RegisterForm = () => {
   // taken from context
   const { homeHookData, userHookData } = useContext(HomeContext);
@@ -30,7 +21,7 @@ const RegisterForm = () => {
   const { firstName, lastName, email, password, password2, country } =
     registerForm;
 
-  const [errors, setErrors] = useState(initialErrors);
+  const [errors, setErrors] = useState({});
 
   const onInputChange = ({ target }) => {
     const { name, value } = target;

@@ -7,11 +7,6 @@ const initialLoginForm = {
   password: "",
 };
 
-const initialErrors = {
-  email: "",
-  password: "",
-}
-
 const LoginForm = () => {
   const { homeHookData, userHookData } = useContext(HomeContext);
   const [loginForm, setLoginForm] = useState(initialLoginForm);
