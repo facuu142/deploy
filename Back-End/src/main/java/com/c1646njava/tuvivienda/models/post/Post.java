@@ -51,10 +51,10 @@ public class Post {
     private float area;
     @Column(name="bathrooms")
     private int bathrooms;
-    @Column(name="facilities")
-    private int facilities;
     @Column(name="property_age")
     private int age;
+    @Column(name="outstanding")
+    private boolean outstanding;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
