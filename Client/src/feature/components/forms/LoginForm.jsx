@@ -7,10 +7,17 @@ const initialLoginForm = {
   password: "",
 };
 
+const initialErrors = {
+  email: "",
+  password: "",
+}
+
 const LoginForm = () => {
   const { homeHookData, userHookData } = useContext(HomeContext);
   const [loginForm, setLoginForm] = useState(initialLoginForm);
   const { email, password } = loginForm;
+
+  const [errors, setErrors] = useState(initialErrors)
 
   const onInputChange = ({ target }) => {
     const { name, value } = target;
@@ -24,9 +31,19 @@ const LoginForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
+    let error = {}
+    const emptyInputs = Object.keys(loginForm).filter(val => loginForm[val] === "")
+
+
     console.log("user data: ", loginForm)
 
-    if (!email || !password) console.log("Los campos no deben ir vacios!");
+    if (emptyInputs.length > 0) {
+      emptyInputs.map((val) => {
+        error[val] = `El campo ${val} no puede ir vacio`
+      });
+
+      setErrors(error)
+    }
     else userHookData.handlerLoginUser(loginForm);
   };
 
@@ -48,14 +65,17 @@ const LoginForm = () => {
           </label>
           <input
             className={`shadow appearance-none border ${
-              !email ? "border-red-500" : ""
+              errors.email && "border-red-500"
             } rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
             name="email"
-            type="text"
+            type="email"
             value={email}
             placeholder="tucorreo@ejemplo.com"
             onChange={onInputChange}
           />
+          {errors.email && <p className="text-red-500 text-xs italic">
+              {errors.email}
+            </p>}
         </div>
         <div className="mb-6">
           <label
@@ -66,7 +86,7 @@ const LoginForm = () => {
           </label>
           <input
             className={`shadow appearance-none border ${
-              !password && "border-red-500"
+              errors.password && "border-red-500"
             } rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
             name="password"
             type="password"
@@ -74,7 +94,9 @@ const LoginForm = () => {
             placeholder="*************"
             onChange={onInputChange}
           />
-          <p className="text-red-500 text-xs italic">Escribe una contraseña.</p>
+          {errors.password && <p className="text-red-500 text-xs italic">
+              {errors.password}
+            </p>}
         </div>
         <div className="flex flex-col items-center justify-between gap-4">
           <button
@@ -92,9 +114,9 @@ const LoginForm = () => {
         </div>
 
         <p className="m-2 text-sm w-full text-center">
-          {"No tengo una cuenta, "}
+          No tengo una cuenta,
           <a
-            className="text-sky-500 hover:text-#fff"
+            className="text-sky-500 hover:text-sky-800 ml-1"
             href="#"
             onClick={homeHookData.handlerRegisterOpen}
           >

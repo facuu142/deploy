@@ -149,7 +149,7 @@ const RegisterForm = () => {
           <article className="w-full px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-password"
+              htmlFor="grid-email"
             >
               Email
             </label>
@@ -157,10 +157,10 @@ const RegisterForm = () => {
               className={`appearance-none block w-full bg-gray-200 text-gray-700 ${
                 errors.email && "border border-red-500"
               } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-              id="grid-password"
+              id="grid-email"
               name="email"
               placeholder="Email..."
-              type="text"
+              type="email"
               value={email}
               onChange={onInputChange}
             />
@@ -178,6 +178,7 @@ const RegisterForm = () => {
               Contraseña
             </label>
             <input
+              id="grid-password"
               name="password"
               className={`appearance-none block w-full bg-gray-200 text-gray-700 ${
                 errors.password && "border border-red-500"
@@ -195,11 +196,12 @@ const RegisterForm = () => {
           <article className="w-full md:w-1/2 px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-password"
+              htmlFor="grid-password-2"
             >
               Comfirmar contraseña
             </label>
             <input
+              id="grid-password-2"
               name="password2"
               className={`appearance-none block w-full bg-gray-200 text-gray-700 ${
                 errors.password && "border border-red-500"
