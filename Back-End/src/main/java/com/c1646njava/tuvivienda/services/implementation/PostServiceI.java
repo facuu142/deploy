@@ -30,22 +30,22 @@ public class PostServiceI implements PostService {
 
     @Override
     public List<Post> searchByLocation(String address) throws postNotFoundException {
-        Optional<List<Post>> listaposts = postrepositorio.searchByLocation(address);
-        if(listaposts.isPresent()){
-            return listaposts.get();
+        List<Post> listaposts = postrepositorio.searchByLocation(address);
+        if(!listaposts.isEmpty()){
+            return listaposts;
         }else{
-            throw new postNotFoundException("No hay publicaciones con la dirección: " + address);
+            throw new postNotFoundException("There are no posts with the address: " + address);
 
         }
     }
 
     @Override
     public List<Post> searchByType(String type) throws postNotFoundException {
-        Optional<List<Post>> listaposts = postrepositorio.searchByType(type);
-        if(listaposts.isPresent()){
-            return listaposts.get();
+        List<Post> listaposts = postrepositorio.searchByType(type);
+        if(!listaposts.isEmpty()){
+            return listaposts;
         }else{
-            throw new postNotFoundException("No hay publicaciones de tipo: " + type);
+            throw new postNotFoundException("There are no posts of type: " + type);
 
         }
 
@@ -53,22 +53,22 @@ public class PostServiceI implements PostService {
 
     @Override
     public List<Post>  searchByBedrooms(Integer bedrooms1) throws postNotFoundException{
-        Optional<List<Post>> listaposts = postrepositorio.searchByBedrooms(bedrooms1);
-        if(listaposts.isPresent()){
-            return listaposts.get();
+        List<Post> listaposts = postrepositorio.searchByBedrooms(bedrooms1);
+        if(!listaposts.isEmpty()){
+            return listaposts;
         }else{
-            throw new postNotFoundException("No hay publicaciones con " + bedrooms1 + " habitaciones");
+            throw new postNotFoundException("There are no publications with " + bedrooms1 + " habitaciones");
 
         }
     }
 
     @Override
     public List<Post> searchByPrice(Long priceLow, Long PriceHigh) throws postNotFoundException {
-        Optional<List<Post>> listaposts = postrepositorio.searchByPrice(priceLow,PriceHigh);
-        if(listaposts.isPresent()){
-            return listaposts.get();
+        List<Post> listaposts = postrepositorio.searchByPrice(priceLow,PriceHigh);
+        if(!listaposts.isEmpty()){
+            return listaposts;
         }else{
-            throw new postNotFoundException("No hay publicaciones dentro de ese rango de precios ");
+            throw new postNotFoundException("There are no listings within this price range ");
 
         }
     }

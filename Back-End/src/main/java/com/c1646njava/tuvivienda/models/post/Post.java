@@ -53,7 +53,7 @@ public class Post {
     private int bathrooms;
     @Column(name="property_age")
     private int age;
-    @Column(name="outstandin")
+    @Column(name="outstanding")
     private boolean outstanding;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

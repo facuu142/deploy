@@ -15,14 +15,14 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
 
 
     @Query("SELECT p FROM Post p WHERE p.address = LOWER(:address1)")
-    Optional<List<Post>> searchByLocation(String address1);
+    List<Post> searchByLocation(String address1);
 
     @Query("SELECT p FROM Post p WHERE p.type = LOWER(:type1)")
-    Optional<List<Post>>  searchByType(String type1);
+    List<Post>  searchByType(String type1);
     @Query("SELECT p FROM Post p WHERE p.bedrooms = :bedrooms1")
-    Optional<List<Post>>  searchByBedrooms(Integer bedrooms1);
+    List<Post>  searchByBedrooms(Integer bedrooms1);
 
     @Query("SELECT p FROM Post p WHERE p.price >= :priceLow AND p.price <= :PriceHigh")
-    Optional<List<Post>>  searchByPrice(Long priceLow, Long PriceHigh);
+    List<Post>  searchByPrice(Long priceLow, Long PriceHigh);
 }
 
