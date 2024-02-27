@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -23,6 +24,9 @@ public class Post {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name")
+    @NotEmpty
+    private String name;
     @Column(name = "description")
     @NotEmpty
     private String description;
@@ -35,9 +39,6 @@ public class Post {
     @Column(name = "address")
     @NotEmpty
     private String address;
-    @Column(name = "views")
-    @NotEmpty
-    private Long views;
     @Column(name = "price")
     @NotEmpty
     private Long price;
@@ -45,8 +46,15 @@ public class Post {
     private String comments;
     @Column(name = "status")
     @NotEmpty
-    private Boolean status;
-
+    private String status;
+    @Column(name="area")
+    private float area;
+    @Column(name="bathrooms")
+    private int bathrooms;
+    @Column(name="facilities")
+    private int facilities;
+    @Column(name="property_age")
+    private int age;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

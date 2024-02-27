@@ -1,4 +1,4 @@
-package com.c1646njava.tuvivienda.exeptions.PostExceptions;
+package com.c1646njava.tuvivienda.exceptions.PostExceptions;
 
 import com.c1646njava.tuvivienda.DTO.Errors.errorMessage;
 import org.springframework.http.HttpHeaders;
