@@ -1,13 +1,18 @@
 package com.c1646njava.tuvivienda.repositories;
 
 import com.c1646njava.tuvivienda.models.post.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificationExecutor {
+
 
     @Query("SELECT p FROM Post p WHERE p.address = LOWER(:address1)")
     Optional<List<Post>> searchByLocation(String address1);
@@ -20,3 +25,4 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p WHERE p.price >= :priceLow AND p.price <= :PriceHigh")
     Optional<List<Post>>  searchByPrice(Long priceLow, Long PriceHigh);
 }
+

@@ -1,10 +1,7 @@
 package com.c1646njava.tuvivienda.services.abstraction;
 
-import com.c1646njava.tuvivienda.exeptions.MyException;
 import com.c1646njava.tuvivienda.models.user.User;
 import com.c1646njava.tuvivienda.models.user.dto.RequestUser;
-import com.c1646njava.tuvivienda.models.user.dto.ResponseUser;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;

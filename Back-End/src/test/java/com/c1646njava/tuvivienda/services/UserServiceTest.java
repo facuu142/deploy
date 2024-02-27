@@ -1,23 +1,14 @@
 package com.c1646njava.tuvivienda.services;
 
-import com.c1646njava.tuvivienda.exeptions.MyException;
-import com.c1646njava.tuvivienda.models.image.ImageUser;
-import com.c1646njava.tuvivienda.models.post.Post;
-import com.c1646njava.tuvivienda.models.user.User;
 import com.c1646njava.tuvivienda.repositories.UserRepository;
 import com.c1646njava.tuvivienda.services.implementation.UserServiceImp;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {

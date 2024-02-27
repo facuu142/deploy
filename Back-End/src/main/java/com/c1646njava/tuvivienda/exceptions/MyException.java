@@ -1,4 +1,4 @@
-package com.c1646njava.tuvivienda.exeptions;
+package com.c1646njava.tuvivienda.exceptions;
 
 public class MyException extends Exception {
 
