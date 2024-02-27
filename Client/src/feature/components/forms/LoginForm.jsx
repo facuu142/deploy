@@ -12,7 +12,7 @@ const LoginForm = () => {
   const [loginForm, setLoginForm] = useState(initialLoginForm);
   const { email, password } = loginForm;
 
-  const [errors, setErrors] = useState(initialErrors)
+  const [errors, setErrors] = useState({})
 
   const onInputChange = ({ target }) => {
     const { name, value } = target;
