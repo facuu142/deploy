@@ -38,8 +38,8 @@ const CardItem = () => {
 
         {/* MOST COMMON POST */}
         <span
-          className="inline-block bg-gray-200 rounded-lg
-        px-1 py-1 text-sm font-semibold text-gray-700 text-center"
+          className="inline-block bg-cyan-700 rounded-lg
+        px-1 py-1 text-sm font-semibold text-white text-center"
         >
           Contactar
         </span>

@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { HomeContext } from "../../context/HomeContext";
 
 const SearchBar = () => {
+  const { homeHookData } = useContext(HomeContext);
+
+
   return (
     <div className="w-full sticky md:flex bg-gray-100 py-4 justify-center items-center md:space-x-4 px-2 space-y-2 md:space-y-0">
       <form className="w-auto md:grid md:grid-cols-5 justify-center items-center md:space-x-2 space-y-2 md:space-y-0">
@@ -91,9 +96,13 @@ const SearchBar = () => {
       </form>
 
       {/* PUBLISH PROPERTY */}
-      <button className="px-4 py-3 rounded-md bg-cyan-700 text-white w-full md:w-auto">
+      <Link
+        to={"/publish"}
+        onClick={homeHookData.handlerOpenSidebar}
+        className="px-4 py-3 rounded-md bg-cyan-700 text-white md:w-auto"
+      >
         Publicar
-      </button>
+      </Link>
     </div>
   );
 };

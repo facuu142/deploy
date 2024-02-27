@@ -10,13 +10,14 @@ import Messages from "./menu/Messages";
 import Settings from "./menu/Settings";
 import { HomeContext } from "../../context/HomeContext";
 import RegisterForm from "./forms/RegisterForm";
+import PropertyForm from "./forms/PropertyForm";
 
 const SideBar = () => {
   const { homeHookData } = useContext(HomeContext);
 
   return (
     <aside
-      className={`fixed bg-blue-300 rounded z-50 bg-white top-[10vh] "translate-x-full" right-0 z-40 md:w-2/5 lg:w-1/4 w-10/12 h-screen shadow-lg duration-500 p-4 transition-transform ${
+      className={`fixed bg-blue-300 rounded z-50 bg-white top-[10vh] "translate-x-full" right-0 z-40 md:w-2/5 lg:w-1/4 w-10/12 h-screen shadow-lg duration-500 p-4 transition-transform overflow-y-auto ${
         homeHookData.sidebarVisible ? "" : "translate-x-full"
       }`}
     >
@@ -39,6 +40,7 @@ const SideBar = () => {
            <Route path="/notifications" element={<Notifications />} />
            <Route path="/messages" element={<Messages />} />
            <Route path="/settings" element={<Settings />}/>
+           <Route path="/publish" element={<PropertyForm />}/>
         </Routes>
       </div>
     </aside>
