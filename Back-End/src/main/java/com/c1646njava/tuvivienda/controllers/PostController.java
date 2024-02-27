@@ -28,6 +28,33 @@ public class PostController implements PostControllerA {
         this.postservicio = postservicio;
 
     }
+
+
+    @Override
+    @GetMapping("/findByName/{address}")
+    public ResponseEntity<List<Post>> searchByLocation(@PathVariable("address") String address) throws postNotFoundException{
+        return ResponseEntity.ok(postservicio.searchByLocation(address));
+    }
+    @Override
+    @GetMapping("/findByType/{type}")
+    public ResponseEntity<List<Post>> searchByType(@PathVariable("type") String type) throws postNotFoundException{
+        return ResponseEntity.ok(postservicio.searchByType(type));
+    }
+    @Override
+    @GetMapping("/findByBedrooms/{bedrooms}")
+    public ResponseEntity<List<Post>> searchByBedrooms(@PathVariable("bedrooms") Integer bedrooms) throws postNotFoundException{
+        return ResponseEntity.ok(postservicio.searchByBedrooms(bedrooms));
+    }
+    @Override
+    @GetMapping("/findByPrice")
+    public ResponseEntity<List<Post>>  searchByPrice(@RequestParam(name = "lowprice") Long lowprice, @RequestParam(name = "highprice") Long highprice)
+            throws postNotFoundException
+    {
+        return ResponseEntity.ok(postservicio.searchByPrice(lowprice, highprice));
+
+    }
+
+
     @Override
     @GetMapping("/searchByFilter")
     public ResponseEntity<Page<Post>> getByFilter(@RequestBody List<FilterDTO> filterDTOList, @SortDefault(sort = "id", direction = Sort.Direction.DESC)  @PageableDefault(page = 0, size = 10) Pageable pageable) throws postNotFoundException{

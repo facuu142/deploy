@@ -13,6 +13,13 @@ import java.util.List;
 @Service
 public interface PostService {
 
+    List<Post> searchByLocation(String address) throws postNotFoundException;
+
+    List<Post>searchByType(String type) throws postNotFoundException;
+    List<Post> searchByBedrooms(Integer bedrooms1) throws postNotFoundException;
+    List<Post> searchByPrice(Long priceLow,Long PriceHigh) throws postNotFoundException;
+
+
     Page<Post> searchByFilter(List<FilterDTO> filterDtoList, Pageable pageable);
 
     Post crearPost(Post post) throws entityCreationException ;

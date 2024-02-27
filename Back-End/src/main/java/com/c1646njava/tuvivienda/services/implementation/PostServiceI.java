@@ -28,6 +28,51 @@ public class PostServiceI implements PostService {
         this.patcher = patcher;
     }
 
+    @Override
+    public List<Post> searchByLocation(String address) throws postNotFoundException {
+        Optional<List<Post>> listaposts = postrepositorio.searchByLocation(address);
+        if(listaposts.isPresent()){
+            return listaposts.get();
+        }else{
+            throw new postNotFoundException("No hay publicaciones con la dirección: " + address);
+
+        }
+    }
+
+    @Override
+    public List<Post> searchByType(String type) throws postNotFoundException {
+        Optional<List<Post>> listaposts = postrepositorio.searchByType(type);
+        if(listaposts.isPresent()){
+            return listaposts.get();
+        }else{
+            throw new postNotFoundException("No hay publicaciones de tipo: " + type);
+
+        }
+
+    }
+
+    @Override
+    public List<Post>  searchByBedrooms(Integer bedrooms1) throws postNotFoundException{
+        Optional<List<Post>> listaposts = postrepositorio.searchByBedrooms(bedrooms1);
+        if(listaposts.isPresent()){
+            return listaposts.get();
+        }else{
+            throw new postNotFoundException("No hay publicaciones con " + bedrooms1 + " habitaciones");
+
+        }
+    }
+
+    @Override
+    public List<Post> searchByPrice(Long priceLow, Long PriceHigh) throws postNotFoundException {
+        Optional<List<Post>> listaposts = postrepositorio.searchByPrice(priceLow,PriceHigh);
+        if(listaposts.isPresent()){
+            return listaposts.get();
+        }else{
+            throw new postNotFoundException("No hay publicaciones dentro de ese rango de precios ");
+
+        }
+    }
+
 
 
     public Page<Post> searchByFilter(List<FilterDTO> filterDtoList, Pageable pageable){
