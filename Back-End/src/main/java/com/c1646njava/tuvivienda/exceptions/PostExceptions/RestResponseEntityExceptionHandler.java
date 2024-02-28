@@ -38,7 +38,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(entityCreationException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<errorMessage> handleentityCreationException(entityCreationException exception){
+    public ResponseEntity<errorMessage> handleEntityCreationException(entityCreationException exception){
         errorMessage mensaje = new errorMessage(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
 
