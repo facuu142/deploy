@@ -1,8 +1,24 @@
-import { save } from "../services/postService";
+import { useReducer } from "react";
+import { findAll, save } from "../services/postService";
+import { postsReducer } from "../reducers/postsReducer";
 
 const usePost = () => {
+  const [allPost, dispatch] = useReducer(postsReducer, []);
+
+  const getAllPosts = async () => {
+    const result = await findAll()
+
+    console.log("!!! post request result :", result.data.content)
+
+    dispatch({
+      type: "loadingPosts",
+      payload: result.data.content
+    })
+  }
+
   const handlerCreatePost = async (post) => {
     let response;
+
     try {
       response = await save(post);
 
@@ -16,6 +32,8 @@ const usePost = () => {
   };
 
   return {
+    allPost,
+    getAllPosts,
     handlerCreatePost,
   };
 };

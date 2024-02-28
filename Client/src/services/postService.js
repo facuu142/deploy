@@ -6,7 +6,7 @@ export const findAll = async () => {
   try {
     return await axios.get(`${DB_URL}/getall`);
   } catch (e) {
-    console.error("Ops... we can't get posts!");
+    console.error("Ops... we can't get post!");
   }
 
   return null;

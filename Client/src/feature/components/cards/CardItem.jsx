@@ -6,7 +6,7 @@ import { BiLike } from "react-icons/bi";
 import { CiStar } from "react-icons/ci";
 //import { FaStar } from "react-icons/fa";
 
-const CardItem = () => {
+const CardItem = ({post}) => {
   return (
     <div className="bg-white shadow relative rounded overflow-hidden m-2">
      <a href="./id" >
@@ -33,10 +33,10 @@ const CardItem = () => {
       </div>
 
       <div className="px-4 flex flex-col py-4 space-y-2">
-        <h4 className="font-bold text-md">Nombre de la propiedad</h4>
-        <p className="text-gray-700 text-base">Dir 34 #12-54</p>
+        <h4 className="font-bold text-md">{post.name}</h4>
+        <p className="text-gray-700 text-base">{post.address}</p>
 
-        {/* MOST COMMON POST */}
+        {/* CONTACT */}
         <span
           className="inline-block bg-cyan-700 rounded-lg
         px-1 py-1 text-sm font-semibold text-white text-center"
