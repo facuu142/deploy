@@ -72,7 +72,7 @@ public class PostController implements PostControllerA {
     }
 
     @Override
-    @PutMapping("/actualizarAll/{id}")
+    @PutMapping("/updateAll/{id}")
     public ResponseEntity<Post> putById(@PathVariable("id") Long id, @Valid @RequestBody Post post) throws postNotFoundException, MethodArgumentNotValidException {
         return ResponseEntity.ok(postservicio.putById(id,post));
     }
@@ -84,7 +84,7 @@ public class PostController implements PostControllerA {
     }
 
     @Override
-    @PatchMapping("/actualizarCampos/{id}")
+    @PatchMapping("/updateFields/{id}")
     public ResponseEntity<Post> patchPost(@PathVariable Long id, @Valid @RequestBody Post fields) throws postNotFoundException, MethodArgumentNotValidException, IllegalAccessException {
         return ResponseEntity.ok(postservicio.patchById(id, fields));
     }
