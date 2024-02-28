@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/post")
+@CrossOrigin
 public class PostController implements PostControllerA {
 
     private PostService postservicio;
