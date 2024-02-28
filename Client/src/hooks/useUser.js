@@ -1,14 +1,5 @@
 import { login, save } from "../services/userService";
 
-const initialUserData = {
-  id: 0,
-  username: "",
-  email: "",
-  password: "",
-};
-
-const initialError = {};
-
 export const useUser = () => {
 
     const handlerRegisterUser = async (user) => {
