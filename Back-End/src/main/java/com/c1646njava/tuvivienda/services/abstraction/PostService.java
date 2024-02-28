@@ -13,11 +13,42 @@ import java.util.List;
 @Service
 public interface PostService {
 
-    List<Post> searchByLocation(String address) throws postNotFoundException;
+    /**
+     * Searches posts by location.
+     *
+     * @param address The address to search posts for.
+     * @return A list of posts matching the specified address.
+     * @throws PostNotFoundException If no posts are found for the given address.
+     */
+    List<Post> searchByLocation(String address) throws PostNotFoundException;
 
-    List<Post>searchByType(String type) throws postNotFoundException;
-    List<Post> searchByBedrooms(Integer bedrooms1) throws postNotFoundException;
-    List<Post> searchByPrice(Long priceLow,Long PriceHigh) throws postNotFoundException;
+    /**
+     * Searches posts by type.
+     *
+     * @param type The type of post to search for.
+     * @return A list of posts matching the specified type.
+     * @throws PostNotFoundException If no posts are found for the given type.
+     */
+    List<Post> searchByType(String type) throws PostNotFoundException;
+
+    /**
+     * Searches posts by number of bedrooms.
+     *
+     * @param bedrooms1 The minimum number of bedrooms to search for.
+     * @return A list of posts that have at least the specified number of bedrooms.
+     * @throws PostNotFoundException If no posts are found with the given number of bedrooms.
+     */
+    List<Post> searchByBedrooms(Integer bedrooms1) throws PostNotFoundException;
+
+    /**
+     * Searches posts by price range.
+     *
+     * @param priceLow The minimum price of the range.
+     * @param priceHigh The maximum price of the range.
+     * @return A list of posts that have a price within the specified range.
+     * @throws PostNotFoundException If no posts are found within the given price range.
+     */
+    List<Post> searchByPrice(Long priceLow, Long priceHigh) throws PostNotFoundException;
 
 
     Page<Post> searchByFilter(List<FilterDTO> filterDtoList, Pageable pageable);
