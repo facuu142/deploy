@@ -39,6 +39,9 @@ public class Post {
     @Column(name = "address")
     @NotEmpty
     private String address;
+    @NotEmpty
+    @Column(name="contract_type")
+    private String contract_type;
     @Column(name = "price")
     @NotEmpty
     private Long price;
