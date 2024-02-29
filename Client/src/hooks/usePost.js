@@ -6,23 +6,34 @@ const usePost = () => {
   const [allPost, dispatch] = useReducer(postsReducer, []);
 
   const getAllPosts = async () => {
-    const result = await findAll()
+    const result = await findAll();
 
-    console.log("!!! post request result :", result.data.content)
+    console.log("!!! post request result :", result.data.content);
+    console.log("!!! post request result :", result.data);
 
     dispatch({
       type: "loadingPosts",
-      payload: result.data.content
-    })
-  }
+      payload: result.data.content,
+    });
+  };
 
   const handlerCreatePost = async (post) => {
     let response;
 
     try {
-      response = await save(post);
 
-      console.log("Post Status!!!", response.status);
+      if (!post.id) {
+        response = await save(post);
+      } else {
+        response = await update(post);
+      }
+
+      dispatch({
+        type: post.id === 0 ? "addPost" : "updatePost",
+        payload: response.data.content,
+      });
+
+
     } catch (error) {
       if (error.response) {
         console.log("Post error!!!  ", error.response.data);
@@ -34,7 +45,7 @@ const usePost = () => {
   return {
     allPost,
     getAllPosts,
-    handlerCreatePost,
+    handlerCreatePost
   };
 };
 
