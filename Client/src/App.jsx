@@ -29,10 +29,10 @@ function App() {
         )}
 
         {/* POST FOUND */}
-        <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2">
           {allPost &&
             allPost.map((post) => {
-              return <CardItem post={post} />;
+              return <CardItem key={post.id} post={post} />;
             })}
         </div>
       </div>
