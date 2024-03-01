@@ -15,16 +15,25 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "administrator")
-public class Administrator extends User {
+public class Administrator {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "phone_number")
     private String phoneNumber;
-    @OneToMany
+
+    @OneToMany(mappedBy = "administrator", cascade = CascadeType.REMOVE)
     private List<Post> posts;
 
-    public Administrator(String name, String email, String password, String phoneNumber, ImageUser avatar, List<Post> fav) {
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_Id", referencedColumnName = "id")
+    private User user;
+
+    //This doesn't receive a list of post because when a user upgrade, it doesn't have any post yet
+    public Administrator(String phoneNumber, User associatedUser) {
+        this.phoneNumber = phoneNumber;
+        this.user = associatedUser;
     }
 }

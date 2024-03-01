@@ -20,14 +20,14 @@ public class commentService {
     private PostRepository postRepository;
     private UserRepository userRepository;
     private commentMapper commentMapper;
-    private AuthService authService;
+
 
     public commentService(com.c1646njava.tuvivienda.repositories.commentRepository commentRepository) {
         this.commentRepository = commentRepository;
     }
 
 
-    public comment addComment(commentRequest commentRequest) throws postNotFoundException {
+    /*public comment addComment(commentRequest commentRequest) throws postNotFoundException {
         //find post
         Post post = postRepository.findById(commentRequest.postId())
                 .orElseThrow(() -> new postNotFoundException(commentRequest.postId().toString()));
@@ -39,7 +39,7 @@ public class commentService {
 
 
 
-    }
+    }*/
 
     public Page<comment> getAll(Long postId, Pageable pageable) throws postNotFoundException {
         Post post = postRepository.findById(postId).orElseThrow(() -> new postNotFoundException(postId.toString()));

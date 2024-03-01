@@ -24,6 +24,7 @@ public record RequestUser(
 
         @NotBlank(message = "Country is required")
         String country,
+
         ImageUser avatar
 ) {
 }

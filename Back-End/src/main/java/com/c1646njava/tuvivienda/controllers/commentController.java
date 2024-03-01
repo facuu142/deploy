@@ -22,12 +22,12 @@ public class commentController {
     public commentController(commentService commentService) {
         this.commentService = commentService;
     }
-
+/*
     @PostMapping("/add")
     public ResponseEntity<comment> addComment(@RequestBody commentRequest commentRequest) throws postNotFoundException {
             return ResponseEntity.ok(this.commentService.addComment(commentRequest));
     }
-
+*/
 
     @PostMapping("/getAll/{id}")
     public ResponseEntity<Page<comment>> getAll(@PathVariable(value = "id",required = true) Long postId, @PageableDefault(page = 0, size = 10) Pageable pageable ) throws postNotFoundException {

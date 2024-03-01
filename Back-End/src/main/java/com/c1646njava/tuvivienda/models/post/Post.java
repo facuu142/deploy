@@ -66,8 +66,7 @@ public class Post extends createdDate{
     @Column(name="state")
     private String state;
 
-    @OneToMany
-    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "post")
     private List<ImagePost> image;
 
 

@@ -4,10 +4,14 @@ import com.c1646njava.tuvivienda.models.administrator.Administrator;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
 import com.c1646njava.tuvivienda.models.user.dto.RequestUser;
+import com.c1646njava.tuvivienda.repositories.AdministratorRepository;
 import com.c1646njava.tuvivienda.repositories.PostRepository;
 import com.c1646njava.tuvivienda.repositories.UserRepository;
+import io.jsonwebtoken.Jwt;
+import org.springframework.security.core.context.SecurityContextHolder;
 import com.c1646njava.tuvivienda.services.abstraction.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +24,9 @@ public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
     private final PostRepository postRepository;
+    private final AdministratorRepository administratorRepository;
+
+
 
     @Override
     public User registerUser(RequestUser requestUser) {
@@ -65,18 +72,16 @@ public class UserServiceImp implements UserService {
                 .orElseThrow(() -> new AuthenticationException("Invalid user ID"));
 
         // Check if user is already an administrator
-        if (user instanceof Administrator) {
+
+        if (administratorRepository.findByUser_id(user.getId()) != null) {
             throw new AuthenticationException("User is already an administrator");
         }
 
         // Update user to Administrator
-        Administrator admin = new Administrator(user.getName(), user.getEmail(), user.getPassword(), phoneNumber, user.getAvatar(), user.getFav());
-        admin.setId(user.getId()); // Set ID to maintain existing user data
-        // Delete the old user entry
-        userRepository.deleteById(userId);
+        Administrator admin = new Administrator(phoneNumber, user);
 
         // Save the new administrator
-        return userRepository.save(admin);
+        return administratorRepository.save(admin);
     }
 
 
@@ -139,5 +144,8 @@ public class UserServiceImp implements UserService {
             throw new IllegalArgumentException("The user must have a country");
         }
     }
+
+
+
 
 }

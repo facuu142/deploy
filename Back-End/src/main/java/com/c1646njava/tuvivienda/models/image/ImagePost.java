@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Image_post")
 public class ImagePost extends Image{
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", referencedColumnName = "id")
     private Post post;
 }
