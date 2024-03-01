@@ -1,28 +1,56 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { IoCloseCircleOutline } from "react-icons/io5";
+import LoginForm from "./forms/LoginForm";
+import { Route, Routes } from "react-router-dom"
 
-const SideBar = ({ isOpen }) => {
-  const [open, setOpen] = useState(isOpen);
+import PropTypes from "prop-types"
+import Calendar from "./menu/Calendar";
+import Notifications from "./menu/Notifications";
+import Messages from "./menu/Messages";
+import Settings from "./menu/Settings";
+import { HomeContext } from "../../context/HomeContext";
+import RegisterForm from "./forms/RegisterForm";
+import PropertyForm from "./forms/PropertyForm";
+import Home from "./Home";
+
+const SideBar = () => {
+  const { homeHookData } = useContext(HomeContext);
+//Line 21: change from h-screen to min-h-screen in order to avoid overflow in Y
   return (
     <aside
-      className={`fixed top-0 right-0 z-40 md:w-2/5 lg:w-1/4 w-10/12 h-screen bg-gray-300 duration-500 p-4 transition-transform ${
-        open ? "" : "translate-x-full"
+      className={`fixed bg-blue-300 rounded z-50 bg-white top-[10vh] "translate-x-full" right-0 z-40 md:w-2/5 lg:w-1/4 w-10/12 min-h-screen shadow-lg duration-500 p-4 transition-transform ${
+        homeHookData.sidebarVisible ? "" : "translate-x-full"
       }`}
     >
       {/* CLOSE BUTTON */}
       <button
-        className="absolute p-2 top-2 rounded-full bg-gray-400"
-        onClick={() => setOpen(false)}
+        className="bg-blue-300 absolute top-2 rounded-full bg-gray-200 z-10"
+        onClick={homeHookData.handlerCloseSideBar}
       >
-        x
+        <IoCloseCircleOutline style={{fontSize:'1.5rem', zIndex:'0'}}/>
       </button>
 
-      <h3 className="absolute w-full text-center top-2">Default Title</h3>
+      
 
-      <div className="w-full h-full m-2 p-2">
+      <div className="w-full h-full mt-4 p-2 overflow-y-auto">
         {/* ADD CONTENT / FORM HERE */}
+        <Routes>
+           <Route path="/login" element={<LoginForm />} />
+           <Route path="/register" element={<RegisterForm />}/>
+           <Route path="/calendar" element={<Calendar />} />
+           <Route path="/notifications" element={<Notifications />} />
+           <Route path="/messages" element={<Messages />} />
+           <Route path="/settings" element={<Settings />}/>
+           <Route path="/publish" element={<PropertyForm />}/>
+           <Route path="/" element={<Home/>} />
+        </Routes>
       </div>
     </aside>
   );
 };
+
+SideBar.propTypes = {
+  isOpen: PropTypes.any,
+}
 
 export default SideBar;

@@ -50,6 +50,7 @@ public interface PostService {
      */
     List<Post> searchByPrice(Long priceLow, Long priceHigh) throws postNotFoundException;
 
+
     /**
      * Searches posts based on the provided filters with pagination.
      *

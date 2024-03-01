@@ -19,14 +19,14 @@ import javax.validation.constraints.NotEmpty;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@CrossOrigin
 public class UserController {
 
     private final UserServiceImp userServiceImp;
     private final UserRepository userRepository;
 
     @PostMapping("/register")
-
-    public ResponseEntity<?> createUser(@RequestBody RequestUser requestUser){
+    public ResponseEntity<?> createUser(@RequestBody RequestUser requestUser) {
         try {
             User user = userServiceImp.registerUser(requestUser);
 

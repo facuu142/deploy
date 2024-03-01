@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/post")
+@CrossOrigin
 public class PostController implements PostControllerA {
 
     private PostService postservice;
@@ -81,7 +82,7 @@ public class PostController implements PostControllerA {
     }
 
     @Override
-    @PutMapping("/actualizarAll/{id}")
+    @PutMapping("/updateAll/{id}")
     public ResponseEntity<Post> putById(@PathVariable("id") Long id, @Valid @RequestBody Post post) throws postNotFoundException, MethodArgumentNotValidException {
         return ResponseEntity.ok(postservice.putById(id,post));
     }
@@ -93,7 +94,7 @@ public class PostController implements PostControllerA {
     }
 
     @Override
-    @PatchMapping("/actualizarCampos/{id}")
+    @PatchMapping("/updateFields/{id}")
     public ResponseEntity<Post> patchPost(@PathVariable Long id, @Valid @RequestBody Post fields) throws postNotFoundException, MethodArgumentNotValidException, IllegalAccessException {
         return ResponseEntity.ok(postservice.patchById(id, fields));
     }
