@@ -1,17 +1,6 @@
 import axios from "axios";
-// import { notifyError, notifySuccess } from "../utils/notifications";
 
 const DB_URL = "http://localhost:8080/user";
-
-/* export const findAll = async () => {
-  try {
-    return await axios.get(DB_URL);
-  } catch (e) {
-    console.error("Ops... we can't get users!");
-  }
-
-  return null;
-}; */
 
 export const login = async ({ email, password }) => {
   console.log("email from axios: ", email)
@@ -54,8 +43,6 @@ export const update = async ({ username, email, id }) => {
 
 export const remove = async (id) => {
   try {
-    // notifySuccess("User deleted");
-    console.log("User deleted");
     await axios.delete(`${DB_URL}/${id}`);
   } catch (e) {
     throw e;

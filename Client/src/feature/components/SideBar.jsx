@@ -18,7 +18,11 @@ const SideBar = () => {
 //Line 21: change from h-screen to min-h-screen in order to avoid overflow in Y
   return (
     <aside
+<<<<<<< HEAD
       className={`fixed bg-blue-300 rounded z-50 bg-white top-[10vh] "translate-x-full" right-0 z-40 md:w-2/5 lg:w-1/4 w-10/12 min-h-screen shadow-lg duration-500 p-4 transition-transform overflow-y-auto ${
+=======
+      className={`fixed bg-blue-300 rounded z-50 bg-white "translate-x-full" right-0 z-40 md:w-2/5 lg:w-1/4 w-10/12 h-full shadow-lg duration-500 p-4 transition-transform ${
+>>>>>>> 7984a62900f727f50a1c3eb091f82b5cde55405f
         homeHookData.sidebarVisible ? "" : "translate-x-full"
       }`}
     >
@@ -32,7 +36,7 @@ const SideBar = () => {
 
       
 
-      <div className="w-full h-full mt-10 p-2">
+      <div className="w-full h-full mt-4 p-2 overflow-y-auto">
         {/* ADD CONTENT / FORM HERE */}
         <Routes>
            <Route path="/login" element={<LoginForm />} />

@@ -1,7 +1,7 @@
-export const usersReducer = (state = [], action) => {
+export const postsReducer = (state = [], action) => {
     switch (action.type) {
       // each case represent an action
-      case "addUser":
+      case "addPost":
         return [
           ...state,
           {
@@ -10,7 +10,7 @@ export const usersReducer = (state = [], action) => {
           },
         ];
   
-      case "updateUser":
+      case "updatePost":
         return state.map((u) => {
           if (u.id === action.payload.id) {
             return {
@@ -20,11 +20,11 @@ export const usersReducer = (state = [], action) => {
           return u;
         });
   
-      case "removeUser":
-        // retorn a new user without selected user
-        return state.filter((user) => user.id !== action.payload);
+      case "removePost":
+        // return a new post without selected post
+        return state.filter((post) => post.id !== action.payload);
   
-      case "loadingUsers":
+      case "loadingPosts":
         return action.payload
   
       default:
