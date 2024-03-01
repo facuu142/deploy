@@ -9,7 +9,7 @@ import { CiStar } from "react-icons/ci";
 const CardItem = () => {
   return (
     <div className="bg-white shadow relative rounded overflow-hidden m-2">
-     <a href="./id" >
+     <a href="./id">
       <div >
         {/* IMAGE RESOURCE */}
         <img

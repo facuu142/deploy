@@ -1,4 +1,5 @@
 import CardMesagge from "../cards/CardMesagge"
+import { Link } from "react-router-dom"
 
 const Messages = ()=>{
     return (
@@ -10,6 +11,9 @@ const Messages = ()=>{
             <CardMesagge />
             <CardMesagge />
           </div>
+          <Link to="/chat" target="_blank">
+          <button className="w-11/12 absolute bottom-[10svh] bg-sky-900 text-white p-2 items-center"> Ir al Chat</button>
+          </Link>
         </>
     )
 }

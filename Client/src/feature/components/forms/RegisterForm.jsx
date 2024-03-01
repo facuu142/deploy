@@ -41,6 +41,12 @@ const RegisterForm = () => {
     });
   };
 
+
+  const onEmailValidation = (email)=>{
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }
+
   //    const [inputLocation, setInputLocation] = useState('');
   const onSubmit = (e) => {
     e.preventDefault();
@@ -48,11 +54,13 @@ const RegisterForm = () => {
 
 
     if (firstName && lastName && email && password && password2) {
-      if (password !== password2) {
+      if (password !== password2 || !onEmailValidation(email)) {
         // sending error type to object
         setErrors(
           {...errors,
-          password2 : "Las contraseñas no coinciden!"}
+          password2 : "Las contraseñas no coinciden!",
+          email: "Ingrese un Email valido"
+          }
         )
         return;
       }
