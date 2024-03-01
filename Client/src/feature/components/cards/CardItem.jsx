@@ -8,23 +8,7 @@ import { CiStar } from "react-icons/ci";
 
 const CardItem = ({ post }) => {
   return (
-<<<<<<< HEAD
-    <div className="bg-white shadow relative rounded overflow-hidden m-2">
-     <a href="./id">
-      <div >
-        {/* IMAGE RESOURCE */}
-        <img
-          className="w-full"
-          src="https://umbral.co/wp-content/uploads/2021/11/DSC9262-P2.png"
-          alt="Sunset in the mountains"
-        />
-        {/* LIKE BUTTON */}
-        <BiLike
-          onClick={() => console.log("Property liked!")}
-          style={{ color: "#ffffff", fontSize: "1.5rem" }}
-          className="absolute top-0 right-0 m-2"
-        />
-=======
+
     <div className="bg-white shadow relative rounded overflow-hidden m-2 border border-gray-300">
       <a href="./id">
         <div>
@@ -40,8 +24,6 @@ const CardItem = ({ post }) => {
             style={{ color: "#ffffff", fontSize: "1.5rem" }}
             className="absolute top-0 right-0 m-2"
           />
->>>>>>> 7984a62900f727f50a1c3eb091f82b5cde55405f
-
           {/* STARS */}
           <CiStar
             onClick={() => console.log("Property stars!")}
@@ -89,5 +71,6 @@ const CardItem = ({ post }) => {
     </div>
   );
 };
+
 
 export default CardItem;
