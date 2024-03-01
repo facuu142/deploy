@@ -14,13 +14,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-
+import com.c1646njava.tuvivienda.utils.createdDate;
 
 @Entity
 @Data
 @NoArgsConstructor
 @Table(name = "post")
-public class Post {
+public class Post extends createdDate{
 
     @Id
     @Column(name = "id")
@@ -29,76 +29,67 @@ public class Post {
 
     //InDTO
     @Column(name = "name")
-    @NotEmpty
     private String name;
 
     @Column(name = "description")
-    @NotEmpty
     private String description;
 
     @Column(name = "type")
-    @NotEmpty
     private String type;
 
     @Column(name = "bedrooms")
-    @NotEmpty
     private Integer bedrooms;
 
     @Column(name = "address")
-    @NotEmpty
     private String address;
 
-    @NotEmpty
+
     @Column(name="contract_type")
     private String contract_type;
 
     @Column(name = "price")
-    @NotEmpty
     private Long price;
 
     @Column(name="area")
-    @NotEmpty
     private float area;
 
     @Column(name="bathrooms")
-    @NotEmpty
     private int bathrooms;
 
     @Column(name="property_age")
     private int age;
 
     @Column(name="country")
-    private int country;
+    private String country;
 
     @Column(name="state")
-    private int state;
+    private String state;
+
+    @OneToMany
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private List<ImagePost> image;
 
 
+    //EXTERNAL
+    @Column(name = "comments")
+    private String comments = null;
 
+    //advertising payment
+    @Column(name="outstanding")
+    private boolean outstanding = false;
+
+
+    //fav function
     @ManyToMany
     @JoinTable(name = "user_favorites",
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> fav = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "administrator_id", referencedColumnName = "id")
     private Administrator administrator;
 
-    @OneToMany
-    private List<ImagePost> image;
-
-    //EXTERNAL
-    @Column(name = "comments")
-    private String comments;
-
-    //on Rent, on sale, not available
-    @Column(name = "status")
-    @NotEmpty
-    private String status;
-
-    //advertising payment
-    @Column(name="outstanding")
-    private boolean outstanding = false;
 
 
 

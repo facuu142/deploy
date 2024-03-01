@@ -1,9 +1,9 @@
 package com.c1646njava.tuvivienda.controllers;
 
-import com.c1646njava.tuvivienda.controllers.Abstraction.PostControllerA;
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.entityCreationException;
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.post.DTO.FilterDTO;
+import com.c1646njava.tuvivienda.models.post.DTO.postRequest;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.services.abstraction.PostService;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/post")
 @CrossOrigin
-public class PostController implements PostControllerA {
+public class PostController {
 
     private PostService postservice;
 
@@ -31,22 +31,23 @@ public class PostController implements PostControllerA {
     }
 
 
-    @Override
+
     @GetMapping("/findByName/{address}")
     public ResponseEntity<List<Post>> searchByLocation(@PathVariable("address") String address) throws postNotFoundException{
         return ResponseEntity.ok(postservice.searchByLocation(address));
     }
-    @Override
+
+
     @GetMapping("/findByType/{type}")
     public ResponseEntity<List<Post>> searchByType(@PathVariable("type") String type) throws postNotFoundException{
         return ResponseEntity.ok(postservice.searchByType(type));
     }
-    @Override
+
     @GetMapping("/findByBedrooms/{bedrooms}")
     public ResponseEntity<List<Post>> searchByBedrooms(@PathVariable("bedrooms") Integer bedrooms) throws postNotFoundException{
         return ResponseEntity.ok(postservice.searchByBedrooms(bedrooms));
     }
-    @Override
+
     @GetMapping("/findByPrice")
     public ResponseEntity<List<Post>>  searchByPrice(@RequestParam(name = "lowprice") Long lowprice, @RequestParam(name = "highprice") Long highprice)
             throws postNotFoundException
@@ -56,7 +57,7 @@ public class PostController implements PostControllerA {
     }
 
 
-    @Override
+
     @GetMapping("/searchByFilter")
     public ResponseEntity<Page<Post>> getByFilter(
             @RequestBody List<FilterDTO> filterDTOList, // List of filters provided in the request body
@@ -81,19 +82,19 @@ public class PostController implements PostControllerA {
         return ResponseEntity.ok(postservice.findById(id));
     }
 
-    @Override
+
     @PutMapping("/updateAll/{id}")
     public ResponseEntity<Post> putById(@PathVariable("id") Long id, @Valid @RequestBody Post post) throws postNotFoundException, MethodArgumentNotValidException {
         return ResponseEntity.ok(postservice.putById(id,post));
     }
 
-    @Override
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletePost(@PathVariable("id") Long id) throws postNotFoundException {
         return ResponseEntity.ok(postservice.deleteById(id));
     }
 
-    @Override
+
     @PatchMapping("/updateFields/{id}")
     public ResponseEntity<Post> patchPost(@PathVariable Long id, @Valid @RequestBody Post fields) throws postNotFoundException, MethodArgumentNotValidException, IllegalAccessException {
         return ResponseEntity.ok(postservice.patchById(id, fields));
@@ -101,9 +102,9 @@ public class PostController implements PostControllerA {
 
 
 
-    @Override
+
     @PostMapping("/create") //*
-    public ResponseEntity<Post> createPost( @Valid @RequestBody Post post) throws entityCreationException, MethodArgumentNotValidException{
+    public ResponseEntity<Post> createPost( @Valid @RequestBody postRequest post) throws entityCreationException, MethodArgumentNotValidException{
         return ResponseEntity.ok(postservice.crearPost(post));
 
     }

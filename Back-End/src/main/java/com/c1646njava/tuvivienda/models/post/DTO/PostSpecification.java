@@ -29,6 +29,8 @@ public class PostSpecification {
                     //add each conditions to a list of conditions
                     predicates.add(predicate);
                 });
+
+
                 // convert list predicates in an array of type Predicate
                 // predicate1 AND predicate 2 AND ... predicate n
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));

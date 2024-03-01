@@ -3,6 +3,7 @@ package com.c1646njava.tuvivienda.services.abstraction;
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.entityCreationException;
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.post.DTO.FilterDTO;
+import com.c1646njava.tuvivienda.models.post.DTO.postRequest;
 import com.c1646njava.tuvivienda.models.post.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -67,7 +68,7 @@ public interface PostService {
      * @return The created post.
      * @throws entityCreationException If the entity was not persisted correctly.
      */
-    Post crearPost(Post post) throws entityCreationException ;
+    Post crearPost(postRequest post) throws entityCreationException ;
 
     /**
      * Finds a post by its ID.

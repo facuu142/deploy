@@ -5,7 +5,9 @@ import com.c1646njava.tuvivienda.exceptions.PostExceptions.entityCreationExcepti
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.post.DTO.FilterDTO;
 import com.c1646njava.tuvivienda.models.post.DTO.PostSpecification;
+import com.c1646njava.tuvivienda.models.post.DTO.postRequest;
 import com.c1646njava.tuvivienda.models.post.Post;
+import com.c1646njava.tuvivienda.repositories.AdministratorRepository;
 import com.c1646njava.tuvivienda.repositories.PostRepository;
 import com.c1646njava.tuvivienda.services.abstraction.PostService;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,7 @@ public class PostServiceI implements PostService {
 
     private PostRepository postrepository;
     private Patcher patcher;
+    private AdministratorRepository administratorRepository;
 
     public PostServiceI(PostRepository postrepository, Patcher patcher) {
         this.postrepository = postrepository;
@@ -80,15 +83,26 @@ public class PostServiceI implements PostService {
 
     }
 
-    public Post crearPost(Post post) throws entityCreationException{
-        postrepository.save(post);
-        Optional<Post> posteo = postrepository.findById(post.getId());
+    public Post crearPost(postRequest post) throws entityCreationException{
+        Post postc = new Post();
+        BeanUtils.copyProperties(post,postc,"adminId");
+    //        postc.setAdministrator(administratorRepository.findById(post.adminId()).get());
+        postc.setFav(null);
 
-        if(posteo.isPresent()){
-            return posteo.get();
+        Post postv = postrepository.save(postc);
+
+        if(postv == null){
+            throw new entityCreationException("The post was not save correctly");
         }else{
-            throw new entityCreationException("the entity was not persisted correctly");
+            return postv;
+
         }
+
+
+
+
+
+
     }
 
     @Override
