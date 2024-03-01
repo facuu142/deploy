@@ -67,6 +67,13 @@ public class Post {
     @Column(name="property_age")
     private int age;
 
+    @Column(name="country")
+    private int country;
+
+    @Column(name="state")
+    private int state;
+
+
 
     @ManyToMany
     @JoinTable(name = "user_favorites",
