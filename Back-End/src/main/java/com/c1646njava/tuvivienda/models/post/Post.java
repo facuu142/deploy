@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.c1646njava.tuvivienda.models.administrator.Administrator;
+import com.c1646njava.tuvivienda.models.comment.comment;
 import com.c1646njava.tuvivienda.models.image.ImagePost;
 import com.c1646njava.tuvivienda.models.user.User;
 import jakarta.persistence.*;
 
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+
 import com.c1646njava.tuvivienda.utils.createdDate;
 
 @Entity
@@ -32,6 +32,7 @@ public class Post extends createdDate{
     private String name;
 
     @Column(name = "description")
+    @Lob
     private String description;
 
     @Column(name = "type")
@@ -71,15 +72,13 @@ public class Post extends createdDate{
 
 
     //EXTERNAL
-    @Column(name = "comments")
-    private String comments = null;
 
     //advertising payment
     @Column(name="outstanding")
     private boolean outstanding = false;
 
 
-    //fav function
+    //fav feature
     @ManyToMany
     @JoinTable(name = "user_favorites",
             joinColumns = @JoinColumn(name = "post_id"),
@@ -90,7 +89,9 @@ public class Post extends createdDate{
     @JoinColumn(name = "administrator_id", referencedColumnName = "id")
     private Administrator administrator;
 
-
+    //comment feature
+    @OneToMany
+    private List<comment> comments = null;
 
 
 

@@ -86,9 +86,8 @@ public class PostServiceI implements PostService {
     public Post crearPost(postRequest post) throws entityCreationException{
         Post postc = new Post();
         BeanUtils.copyProperties(post,postc,"adminId");
-    //        postc.setAdministrator(administratorRepository.findById(post.adminId()).get());
+        postc.setAdministrator(administratorRepository.findById(post.adminId()).get());
         postc.setFav(null);
-
         Post postv = postrepository.save(postc);
 
         if(postv == null){
@@ -97,11 +96,6 @@ public class PostServiceI implements PostService {
             return postv;
 
         }
-
-
-
-
-
 
     }
 

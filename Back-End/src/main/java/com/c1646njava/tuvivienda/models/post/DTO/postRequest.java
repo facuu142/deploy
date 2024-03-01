@@ -32,8 +32,10 @@ public record postRequest (
         @NotBlank(message = "the property's country must be provided")
         String country,
         @NotBlank(message = "the property's state must be provided")
-        String state
-
+        String state,
+        @NotNull(message = "the property's adminId must be provided")
         //Long adminId
+        Long adminId
+
 ) {
 }
