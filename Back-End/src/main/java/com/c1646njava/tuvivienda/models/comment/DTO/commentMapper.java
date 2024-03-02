@@ -4,6 +4,9 @@ import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.context.annotation.Bean;
+
+
 @Mapper(componentModel = "spring")
 public interface commentMapper {
     @Mapping(target = "id", ignore = true)
