@@ -1,5 +1,6 @@
 package com.c1646njava.tuvivienda.models.administrator;
 
+import com.c1646njava.tuvivienda.models.image.ImageUser;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
 import jakarta.persistence.*;
@@ -14,13 +15,25 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "administrator")
-public class Administrator extends User {
+public class Administrator {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "phone_number")
     private String phoneNumber;
-    @OneToMany
+
+    @OneToMany(mappedBy = "administrator", cascade = CascadeType.REMOVE)
     private List<Post> posts;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_Id", referencedColumnName = "id")
+    private User user;
+
+    //This doesn't receive a list of post because when a user upgrade, it doesn't have any post yet
+    public Administrator(String phoneNumber, User associatedUser) {
+        this.phoneNumber = phoneNumber;
+        this.user = associatedUser;
+    }
 }

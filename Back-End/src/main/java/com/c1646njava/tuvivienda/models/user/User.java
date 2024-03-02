@@ -3,6 +3,8 @@ package com.c1646njava.tuvivienda.models.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.c1646njava.tuvivienda.models.administrator.Administrator;
+import com.c1646njava.tuvivienda.models.comment.comment;
 import com.c1646njava.tuvivienda.models.image.ImageUser;
 import com.c1646njava.tuvivienda.models.post.Post;
 
@@ -29,7 +31,6 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-
     @OneToOne
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     private ImageUser avatar;
@@ -37,8 +38,13 @@ public class User {
     @Column(name = "country")
     private String country;
 
-    @OneToMany
-    private List<Post> fav;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    Administrator administrator;
+
+
+
+    @ManyToMany(mappedBy = "fav")
+    private List<Post> fav = new ArrayList<>();
 
     public User(RequestUser user){
         this.name = user.name();
@@ -48,4 +54,10 @@ public class User {
         this.country = user.country();
         this.fav = new ArrayList<>();
     }
+
+    //comment feature
+    @OneToMany
+    private List<comment> comments;
+
+
 }

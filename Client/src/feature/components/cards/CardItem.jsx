@@ -8,6 +8,7 @@ import { CiStar } from "react-icons/ci";
 
 const CardItem = ({ post }) => {
   return (
+
     <div className="bg-white shadow relative rounded overflow-hidden m-2 border border-gray-300">
       <a href="./id">
         <div>
@@ -23,7 +24,6 @@ const CardItem = ({ post }) => {
             style={{ color: "#ffffff", fontSize: "1.5rem" }}
             className="absolute top-0 right-0 m-2"
           />
-
           {/* STARS */}
           <CiStar
             onClick={() => console.log("Property stars!")}
@@ -71,5 +71,6 @@ const CardItem = ({ post }) => {
     </div>
   );
 };
+
 
 export default CardItem;
