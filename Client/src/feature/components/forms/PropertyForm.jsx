@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { MdAddAPhoto } from "react-icons/md";
 import usePost from "../../../hooks/usePost";
 import { HomeContext } from "../../../context/HomeContext";
+import DragDropImage from "../DragDropImage";
 
 const initPropertyData = {
   name: "",
@@ -75,14 +76,12 @@ const PropertyForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="bg-white flex flex-col px-4">
+    <form onSubmit={onSubmit} className="bg-white flex flex-col">
       {/* IMAGE */}
-      <section className="border-dotted border-2 border-cyan-900 w-full h-20 flex items-center justify-center">
-        <MdAddAPhoto style={{ fill: "gray", fontSize: "1.5rem" }} />
-      </section>
+      <DragDropImage />
 
       {/* PROPERTY NAME */}
-      <section className="lg:mb-2">
+      <section className="lg:mb-2 mt-4">
         <article className="w-full mb-6 md:mb-0">
           <label
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
