@@ -17,7 +17,7 @@ const SideBar = () => {
 
   return (
     <aside
-      className={`fixed bg-blue-300 rounded z-50 bg-white "translate-x-full" right-0 z-40 md:w-2/5 lg:w-1/4 w-10/12 h-full shadow-lg duration-500 p-4 transition-transform ${
+      className={`fixed bg-blue-300 rounded z-50 bg-white right-0 z-40 md:w-2/5 lg:w-1/4 w-10/12 h-full shadow-lg duration-500 p-4 transition-transform ${
         homeHookData.sidebarVisible ? "" : "translate-x-full"
       }`}
     >
@@ -31,7 +31,7 @@ const SideBar = () => {
 
       
 
-      <div className="w-full h-full mt-4 p-2 overflow-y-auto">
+      <div className="w-full h-full mt-4 p-2 overflow-y-auto overflow-x-hidden">
         {/* ADD CONTENT / FORM HERE */}
         <Routes>
            <Route path="/login" element={<LoginForm />} />
