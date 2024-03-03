@@ -68,7 +68,7 @@ public class PostController {
     @GetMapping("/searchByFilter")
     public ResponseEntity<Page<postResponse>> getByFilter(
             @RequestBody List<FilterDTO> filterDTOList, // List of filters provided in the request body
-            @SortDefault(sort = "id", direction = Sort.Direction.DESC) // Default sorting by ID in descending order
+            @SortDefault(sort = "featured", direction = Sort.Direction.DESC) // Default sorting by ID in descending order
             @PageableDefault(page = 0, size = 10) Pageable pageable // Default pagination: page 0, page size 10
     ) throws postNotFoundException {
         // Call the service method to search for posts using the provided filters and pagination
@@ -117,7 +117,7 @@ public class PostController {
     }
 
     @GetMapping("/getall")
-    public ResponseEntity<Page<postResponse>> getAll(@SortDefault(sort = "id", direction = Sort.Direction.DESC)  @PageableDefault(page = 0, size = 10) Pageable pageable)  {
+    public ResponseEntity<Page<postResponse>> getAll(@SortDefault(sort = "featured", direction = Sort.Direction.DESC)  @PageableDefault(page = 0, size = 10) Pageable pageable)  {
         return ResponseEntity.ok(postservice.getAll(pageable));
     }
 

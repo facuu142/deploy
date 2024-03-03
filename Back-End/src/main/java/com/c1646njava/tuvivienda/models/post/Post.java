@@ -80,7 +80,7 @@ public class Post extends createdDate{
 
     //advertising payment
     @Column(name="featured")
-    private boolean featured = false;
+    private int featured = 0;
 
 
     //fav feature

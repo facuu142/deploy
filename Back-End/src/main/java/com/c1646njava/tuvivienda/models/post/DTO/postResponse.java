@@ -28,7 +28,7 @@ public class postResponse{
     private String country;
     private String state;
     private List<ImagePost> images;
-    private boolean outstanding;
+    private int featured;
     private Long administrator_id;
     private List<comment> comments;
 }

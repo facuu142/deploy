@@ -119,4 +119,7 @@ public interface PostService {
     Page<postResponse> getAll(Pageable pageable);
 
     String advertisePost(Long postId) throws postNotFoundException;
+
+
+
 }

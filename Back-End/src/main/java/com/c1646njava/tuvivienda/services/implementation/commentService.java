@@ -26,25 +26,18 @@ public class commentService {
     private UserServiceImp userServiceImp;
     private commentMapper commentMapper;
 
-
-
-
     public comment addComment(commentRequest commentRequest) throws postNotFoundException, AuthenticationException {
         //find post
         Post post = postRepository.findById(commentRequest.postId())
-                .orElseThrow(() -> new postNotFoundException(commentRequest.postId().toString()));
+                .orElseThrow(() -> new postNotFoundException("The post with id: " + commentRequest.postId().toString() + " was not found"));
 
         //put in the comment the post entity and the user entity
         comment comment = commentMapper.map(commentRequest, post, userServiceImp.getCurrentUser(commentRequest.userId()));
 
         return commentRepository.save(comment);}
 
-
-
-
-
     public Page<comment> getAllByPost(Long postId, Pageable pageable) throws postNotFoundException {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new postNotFoundException(postId.toString()));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new postNotFoundException("The post with id: " + postId.toString() + " was not found"));
         return commentRepository.findByPost(post,pageable);
     }
 

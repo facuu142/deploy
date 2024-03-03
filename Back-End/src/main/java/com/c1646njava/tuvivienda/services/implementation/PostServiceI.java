@@ -85,12 +85,18 @@ public class PostServiceI implements PostService {
         }
     }
 
-
-
+    @Override
     public Page<postResponse> searchByFilter(List<FilterDTO> filterDtoList, Pageable pageable){
         Page<Post> pagePost = postrepository.findAll(PostSpecification.columnEqual(filterDtoList), pageable);
         return pagePost.map(this::convertToPostResponse);
     }
+
+    @Override
+    public Page<postResponse> getAll(Pageable pageable){
+        Page<Post> pagePost = postrepository.findAll(pageable);
+        return pagePost.map(this::convertToPostResponse);
+    }
+
 
     private postResponse convertToPostResponse(Post post) {
         postResponse postr = new postResponse();
@@ -183,17 +189,13 @@ public class PostServiceI implements PostService {
         return null;
     }
 
-    @Override
-    public Page<postResponse> getAll(Pageable pageable){
-        Page<Post> pagePost = postrepository.findAll(pageable);
-        return pagePost.map(this::convertToPostResponse);
-    }
+
 
     @Override
     public String advertisePost(Long postId) throws postNotFoundException {
         Optional<Post> post = postrepository.findById(postId);
         if(post.isPresent()){
-            post.get().setFeatured(true);
+            post.get().setFeatured(1);
             postrepository.save(post.get());
             return "The post was featured";
         }else{
