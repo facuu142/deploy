@@ -96,7 +96,7 @@ public class Post extends createdDate{
     private Administrator administrator;
 
     //comment feature
-    @OneToMany
+    @OneToMany(mappedBy = "post")
     private List<comment> comments = null;
 
 

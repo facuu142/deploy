@@ -2,6 +2,7 @@ package com.c1646njava.tuvivienda.models.comment;
 
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.utils.createdDate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,10 +23,12 @@ public class comment extends createdDate {
     @Column(name="content")
     private String content;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id",referencedColumnName = "id")
     private Post post;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

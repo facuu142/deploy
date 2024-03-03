@@ -1,5 +1,6 @@
 package com.c1646njava.tuvivienda.models.post.DTO;
 
+import com.c1646njava.tuvivienda.models.comment.comment;
 import com.c1646njava.tuvivienda.models.image.ImagePost;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -29,4 +30,5 @@ public class postResponse{
     private List<ImagePost> images;
     private boolean outstanding;
     private Long administrator_id;
+    private List<comment> comments;
 }

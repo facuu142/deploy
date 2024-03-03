@@ -14,6 +14,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -55,9 +57,7 @@ public class User {
         this.fav = new ArrayList<>();
     }
 
-    //comment feature
-    @OneToMany
-    private List<comment> comments;
+
 
 
 }
