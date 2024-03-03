@@ -46,8 +46,8 @@ public class UserServiceImp implements UserService {
 
     //comment Feature
     @Transactional(readOnly = true)
-    public User getCurrentUser(String email) {
-        return userRepository.findByEmail(email).get();
+    public User getCurrentUser(Long userId) {
+        return userRepository.findById(userId).get();
     }
 
     @Override

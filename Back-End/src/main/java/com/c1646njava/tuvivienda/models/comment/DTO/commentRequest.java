@@ -9,6 +9,6 @@ public record commentRequest(
         @NotNull
         Long postId,
         @NotNull
-        String email
+        Long userId
 ) {
 }

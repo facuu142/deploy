@@ -35,7 +35,7 @@ public class commentService {
                 .orElseThrow(() -> new postNotFoundException(commentRequest.postId().toString()));
 
         //put in the comment the post entity and the user entity
-        comment comment = commentMapper.map(commentRequest, post, userServiceImp.getCurrentUser(commentRequest.email()));
+        comment comment = commentMapper.map(commentRequest, post, userServiceImp.getCurrentUser(commentRequest.userId()));
 
         return commentRepository.save(comment);}
 
