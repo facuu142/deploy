@@ -79,8 +79,8 @@ public class Post extends createdDate{
     //EXTERNAL
 
     //advertising payment
-    @Column(name="outstanding")
-    private boolean outstanding = false;
+    @Column(name="featured")
+    private boolean featured = false;
 
 
     //fav feature

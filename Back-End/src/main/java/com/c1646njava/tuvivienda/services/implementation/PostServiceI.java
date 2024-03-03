@@ -90,7 +90,6 @@ public class PostServiceI implements PostService {
     public Page<postResponse> searchByFilter(List<FilterDTO> filterDtoList, Pageable pageable){
         Page<Post> pagePost = postrepository.findAll(PostSpecification.columnEqual(filterDtoList), pageable);
         return pagePost.map(this::convertToPostResponse);
-
     }
 
     private postResponse convertToPostResponse(Post post) {
@@ -190,14 +189,17 @@ public class PostServiceI implements PostService {
         return pagePost.map(this::convertToPostResponse);
     }
 
-
-
-
-
-
-
-
-
+    @Override
+    public String advertisePost(Long postId) throws postNotFoundException {
+        Optional<Post> post = postrepository.findById(postId);
+        if(post.isPresent()){
+            post.get().setFeatured(true);
+            postrepository.save(post.get());
+            return "The post was featured";
+        }else{
+            throw new postNotFoundException("There isn't a post with the indicate id");
+        }
+    }
 
 
 }

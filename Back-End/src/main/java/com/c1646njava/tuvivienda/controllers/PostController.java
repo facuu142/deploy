@@ -38,6 +38,12 @@ public class PostController {
         return ResponseEntity.ok(postservice.searchByLocation(address));
     }
 
+    @PatchMapping("/advertise/{postId}")
+    public ResponseEntity<String> advertisePost(@PathVariable("postId") Long postId) throws postNotFoundException {
+        return ResponseEntity.ok(postservice.advertisePost(postId));
+    }
+
+
 
     @GetMapping("/findByType/{type}")
     public ResponseEntity<List<postResponse>> searchByType(@PathVariable("type") String type) throws postNotFoundException{
