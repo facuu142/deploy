@@ -43,6 +43,8 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     Administrator administrator;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<comment> comments;
 
 
     @ManyToMany(mappedBy = "fav")

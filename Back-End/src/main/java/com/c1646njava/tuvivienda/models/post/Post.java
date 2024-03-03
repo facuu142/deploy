@@ -96,7 +96,7 @@ public class Post extends createdDate{
     private Administrator administrator;
 
     //comment feature
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     private List<comment> comments = null;
 
 
