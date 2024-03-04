@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-const initialPost = []
-
 const initialUserData = {
   id: 0,
   username: "",
@@ -13,7 +11,7 @@ export const useHome = () => {
 
   // const [user, dispatch] = useReducer(usersReducer, initialUserData);
 
-  const [isRegisterOpen, setRegisterOpen] = useState(false)
+  const [isModalOpen, setModalOpen] = useState(false)
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
   // FORMULARIO VISIBLE
@@ -23,25 +21,25 @@ export const useHome = () => {
 
   const handlerCloseSideBar = () => {
     setSidebarVisible(false);
-    setRegisterOpen(false)
+    setModalOpen(false)
   };
 
-  const handlerRegisterOpen = () => {
-    setRegisterOpen(true)
+  const handlerModalOpen = () => {
+    setModalOpen(true)
   }
 
-  const handlerRegisterClose = () => {
-    setRegisterOpen(false)
+  const handlerModalClose = () => {
+    setModalOpen(false)
   }
 
 
 
   return {
     sidebarVisible,
-    isRegisterOpen,
+    isModalOpen,
     handlerOpenSidebar,
     handlerCloseSideBar,
-    handlerRegisterOpen,
-    handlerRegisterClose,
+    handlerModalOpen,
+    handlerModalClose,
   };
 };
