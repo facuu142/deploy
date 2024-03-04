@@ -34,7 +34,6 @@ public record postRequest (
         @NotBlank(message = "the property's state must be provided")
         String state,
         @NotNull(message = "the property's adminId must be provided")
-        //Long adminId
         Long adminId
 
 ) {

@@ -14,6 +14,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -41,6 +43,8 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     Administrator administrator;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<comment> comments;
 
 
     @ManyToMany(mappedBy = "fav")
@@ -55,9 +59,7 @@ public class User {
         this.fav = new ArrayList<>();
     }
 
-    //comment feature
-    @OneToMany
-    private List<comment> comments;
+
 
 
 }

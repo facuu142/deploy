@@ -17,11 +17,13 @@ import java.time.LocalDate;
 public abstract class createdDate implements Serializable {
 
     @CreatedDate
+    //YYYY-MM-DD
     @Column(name = "createdDate", nullable = false, updatable = false)
     protected LocalDate createDate;
 
 
     @LastModifiedDate
+    //YYYY-MM-DD
     @Column(name = "lastModifiedDate")
     protected LocalDate lastModifiedDate;
 

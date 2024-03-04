@@ -8,6 +8,8 @@ import com.c1646njava.tuvivienda.repositories.AdministratorRepository;
 import com.c1646njava.tuvivienda.repositories.PostRepository;
 import com.c1646njava.tuvivienda.repositories.UserRepository;
 import io.jsonwebtoken.Jwt;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.c1646njava.tuvivienda.services.abstraction.UserService;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +41,13 @@ public class UserServiceImp implements UserService {
         user.setPassword(requestUser.password());
 
         return userRepository.save(user);
+
+    }
+
+    //comment Feature
+    @Transactional(readOnly = true)
+    public User getCurrentUser(Long userId) {
+        return userRepository.findById(userId).get();
     }
 
     @Override

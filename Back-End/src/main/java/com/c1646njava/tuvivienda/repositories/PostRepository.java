@@ -24,6 +24,7 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
 
     @Query("SELECT p FROM Post p WHERE p.price >= :priceLow AND p.price <= :PriceHigh")
     List<Post>  searchByPrice(Long priceLow, Long PriceHigh);
+
 }
 
 

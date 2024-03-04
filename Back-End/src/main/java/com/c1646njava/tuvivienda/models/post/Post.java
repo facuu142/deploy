@@ -7,9 +7,14 @@ import com.c1646njava.tuvivienda.models.administrator.Administrator;
 import com.c1646njava.tuvivienda.models.comment.comment;
 import com.c1646njava.tuvivienda.models.image.ImagePost;
 import com.c1646njava.tuvivienda.models.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +24,7 @@ import com.c1646njava.tuvivienda.utils.createdDate;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "post")
 public class Post extends createdDate{
 
@@ -73,8 +79,8 @@ public class Post extends createdDate{
     //EXTERNAL
 
     //advertising payment
-    @Column(name="outstanding")
-    private boolean outstanding = false;
+    @Column(name="featured")
+    private int featured = 0;
 
 
     //fav feature
@@ -84,12 +90,13 @@ public class Post extends createdDate{
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> fav = new ArrayList<>();
 
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "administrator_id", referencedColumnName = "id")
     private Administrator administrator;
 
     //comment feature
-    @OneToMany
+    @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     private List<comment> comments = null;
 
 

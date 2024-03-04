@@ -4,6 +4,7 @@ import com.c1646njava.tuvivienda.exceptions.PostExceptions.entityCreationExcepti
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.post.DTO.FilterDTO;
 import com.c1646njava.tuvivienda.models.post.DTO.postRequest;
+import com.c1646njava.tuvivienda.models.post.DTO.postResponse;
 import com.c1646njava.tuvivienda.models.post.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +22,7 @@ public interface PostService {
      * @return A list of posts matching the specified address.
      * @throws postNotFoundException If no posts are found for the given address.
      */
-    List<Post> searchByLocation(String address) throws postNotFoundException;
+    List<postResponse> searchByLocation(String address) throws postNotFoundException;
 
     /**
      * Searches posts by type.
@@ -30,7 +31,7 @@ public interface PostService {
      * @return A list of posts matching the specified type.
      * @throws postNotFoundException If no posts are found for the given type.
      */
-    List<Post> searchByType(String type) throws postNotFoundException;
+    List<postResponse> searchByType(String type) throws postNotFoundException;
 
     /**
      * Searches posts by number of bedrooms.
@@ -39,17 +40,17 @@ public interface PostService {
      * @return A list of posts that have at least the specified number of bedrooms.
      * @throws postNotFoundException If no posts are found with the given number of bedrooms.
      */
-    List<Post> searchByBedrooms(Integer bedrooms1) throws postNotFoundException;
+    List<postResponse> searchByBedrooms(Integer bedrooms1) throws postNotFoundException;
 
     /**
      * Searches posts by price range.
      *
-     * @param priceLow The minimum price of the range.
+     * @param priceLow  The minimum price of the range.
      * @param priceHigh The maximum price of the range.
      * @return A list of posts that have a price within the specified range.
      * @throws postNotFoundException If no posts are found within the given price range.
      */
-    List<Post> searchByPrice(Long priceLow, Long priceHigh) throws postNotFoundException;
+    List<postResponse> searchByPrice(Long priceLow, Long priceHigh) throws postNotFoundException;
 
 
     /**
@@ -59,7 +60,7 @@ public interface PostService {
      * @param pageable      The pagination information.
      * @return A page of posts that match the specified filters.
      */
-    Page<Post> searchByFilter(List<FilterDTO> filterDtoList, Pageable pageable);
+    Page<postResponse> searchByFilter(List<FilterDTO> filterDtoList, Pageable pageable);
 
     /**
      * Creates a new post.
@@ -68,7 +69,7 @@ public interface PostService {
      * @return The created post.
      * @throws entityCreationException If the entity was not persisted correctly.
      */
-    Post crearPost(postRequest post) throws entityCreationException ;
+    postResponse crearPost(postRequest post) throws entityCreationException ;
 
     /**
      * Finds a post by its ID.
@@ -77,7 +78,7 @@ public interface PostService {
      * @return The post with the specified ID.
      * @throws postNotFoundException If no post is found with the given ID.
      */
-    Post findById(Long id) throws postNotFoundException;
+    postResponse findById(Long id) throws postNotFoundException;
 
     /**
      * Deletes a post by its ID.
@@ -96,18 +97,18 @@ public interface PostService {
      * @return The updated post.
      * @throws postNotFoundException If no post is found with the given ID.
      */
-    Post putById(Long id, Post post) throws postNotFoundException;
+    postResponse putById(Long id, Post post) throws postNotFoundException;
 
     /**
      * Partially updates a post with the specified ID using the provided fields.
      *
-     * @param id  The ID of the post to update.
+     * @param id     The ID of the post to update.
      * @param fields The fields to be updated.
      * @return The updated post.
-     * @throws postNotFoundException   If no post is found with the given ID.
+     * @throws postNotFoundException  If no post is found with the given ID.
      * @throws IllegalAccessException If there's an illegal access exception during the update process.
      */
-    Post patchById(Long id,  Post fields) throws postNotFoundException, IllegalAccessException;
+    postResponse patchById(Long id, Post fields) throws postNotFoundException, IllegalAccessException;
 
     /**
      * Retrieves all posts with pagination.
@@ -115,6 +116,10 @@ public interface PostService {
      * @param pageable The pagination information (size, page number, sort).
      * @return A page of posts.
      */
-    Page<Post> getAll(Pageable pageable);
+    Page<postResponse> getAll(Pageable pageable);
+
+    String advertisePost(Long postId) throws postNotFoundException;
+
+
 
 }

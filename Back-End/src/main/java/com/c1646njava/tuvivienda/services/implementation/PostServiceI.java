@@ -3,9 +3,7 @@ package com.c1646njava.tuvivienda.services.implementation;
 import com.c1646njava.tuvivienda.DTO.Patcher.Patcher;
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.entityCreationException;
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
-import com.c1646njava.tuvivienda.models.post.DTO.FilterDTO;
-import com.c1646njava.tuvivienda.models.post.DTO.PostSpecification;
-import com.c1646njava.tuvivienda.models.post.DTO.postRequest;
+import com.c1646njava.tuvivienda.models.post.DTO.*;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.repositories.AdministratorRepository;
 import com.c1646njava.tuvivienda.repositories.PostRepository;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceI implements PostService {
@@ -26,27 +25,33 @@ public class PostServiceI implements PostService {
     private Patcher patcher;
     private AdministratorRepository administratorRepository;
 
-    public PostServiceI(PostRepository postrepository, Patcher patcher) {
+
+    public PostServiceI(PostRepository postrepository, Patcher patcher, AdministratorRepository administratorRepository) {
         this.postrepository = postrepository;
         this.patcher = patcher;
+        this.administratorRepository = administratorRepository;
     }
 
     @Override
-    public List<Post> searchByLocation(String address) throws postNotFoundException {
+    public List<postResponse> searchByLocation(String address) throws postNotFoundException {
         List<Post> listaposts = postrepository.searchByLocation(address);
         if(!listaposts.isEmpty()){
-            return listaposts;
+            return listaposts.stream()
+                    .map(this::convertToPostResponse)
+                    .collect(Collectors.toList());
         }else{
             throw new postNotFoundException("There are no posts with the address: " + address);
-
         }
+
     }
 
     @Override
-    public List<Post> searchByType(String type) throws postNotFoundException {
+    public List<postResponse> searchByType(String type) throws postNotFoundException {
         List<Post> listaposts = postrepository.searchByType(type);
         if(!listaposts.isEmpty()){
-            return listaposts;
+            return listaposts.stream()
+                    .map(this::convertToPostResponse)
+                    .collect(Collectors.toList());
         }else{
             throw new postNotFoundException("There are no posts of type: " + type);
 
@@ -55,35 +60,52 @@ public class PostServiceI implements PostService {
     }
 
     @Override
-    public List<Post>  searchByBedrooms(Integer bedrooms1) throws postNotFoundException{
+    public List<postResponse> searchByBedrooms(Integer bedrooms1) throws postNotFoundException{
         List<Post> listaposts = postrepository.searchByBedrooms(bedrooms1);
         if(!listaposts.isEmpty()){
-            return listaposts;
+            return listaposts.stream()
+                    .map(this::convertToPostResponse)
+                    .collect(Collectors.toList());
         }else{
-            throw new postNotFoundException("There are no publications with " + bedrooms1 + " habitaciones");
+            throw new postNotFoundException("There are no publications with " + bedrooms1 + " bedrooms");
 
         }
     }
 
     @Override
-    public List<Post> searchByPrice(Long priceLow, Long PriceHigh) throws postNotFoundException {
+    public List<postResponse> searchByPrice(Long priceLow, Long PriceHigh) throws postNotFoundException {
         List<Post> listaposts = postrepository.searchByPrice(priceLow,PriceHigh);
         if(!listaposts.isEmpty()){
-            return listaposts;
+            return listaposts.stream()
+                    .map(this::convertToPostResponse)
+                    .collect(Collectors.toList());
         }else{
             throw new postNotFoundException("There are no listings within this price range ");
 
         }
     }
 
-
-
-    public Page<Post> searchByFilter(List<FilterDTO> filterDtoList, Pageable pageable){
-        return postrepository.findAll(PostSpecification.columnEqual(filterDtoList),pageable);
-
+    @Override
+    public Page<postResponse> searchByFilter(List<FilterDTO> filterDtoList, Pageable pageable){
+        Page<Post> pagePost = postrepository.findAll(PostSpecification.columnEqual(filterDtoList), pageable);
+        return pagePost.map(this::convertToPostResponse);
     }
 
-    public Post crearPost(postRequest post) throws entityCreationException{
+    @Override
+    public Page<postResponse> getAll(Pageable pageable){
+        Page<Post> pagePost = postrepository.findAll(pageable);
+        return pagePost.map(this::convertToPostResponse);
+    }
+
+
+    private postResponse convertToPostResponse(Post post) {
+        postResponse postr = new postResponse();
+        BeanUtils.copyProperties(post, postr);
+        postr.setAdministrator_id(post.getAdministrator().getId());
+        return postr;
+    }
+
+    public postResponse crearPost(postRequest post) throws entityCreationException{
         Post postc = new Post();
         BeanUtils.copyProperties(post,postc,"adminId");
         postc.setAdministrator(administratorRepository.findById(post.adminId()).get());
@@ -93,17 +115,23 @@ public class PostServiceI implements PostService {
         if(postv == null){
             throw new entityCreationException("The post was not save correctly");
         }else{
-            return postv;
-
+            postResponse postr = new postResponse();
+            BeanUtils.copyProperties(postv, postr);
+            postr.setAdministrator_id(postv.getAdministrator().getId());
+            return postr;
         }
 
     }
 
     @Override
-    public Post findById(Long id) throws postNotFoundException {
+    public postResponse findById(Long id) throws postNotFoundException {
         Optional<Post> posteo = postrepository.findById(id);
         if(posteo.isPresent()){
-            return posteo.get();
+            postResponse postr = new postResponse();
+            BeanUtils.copyProperties(posteo.get(), postr);
+            postr.setAdministrator_id(posteo.get().getAdministrator().getId());
+
+            return postr;
         }else{
             throw new postNotFoundException("there isn't a post with the id: " + id);
         }
@@ -122,20 +150,24 @@ public class PostServiceI implements PostService {
     }
 
     @Override
-    public Post putById(Long id, Post post) throws postNotFoundException {
+    public postResponse putById(Long id, Post post) throws postNotFoundException {
         Optional<Post> posteo = postrepository.findById(id);
         if(posteo.isPresent()){
             Post postinner = posteo.get();
             BeanUtils.copyProperties(post,postinner, "id");
-            postrepository.save(post);
-            return post;
+            postrepository.save(postinner);
+            postResponse postr = new postResponse();
+            BeanUtils.copyProperties(postinner, postr);
+            postr.setAdministrator_id(postinner.getAdministrator().getId());
+
+            return postr;
         }else{
             throw new postNotFoundException("there isn't a post with the id: " + id);
         }
     }
 
     @Override
-    public Post patchById(Long id,  Post fields) throws postNotFoundException, IllegalAccessException {
+    public postResponse patchById(Long id, Post fields) throws postNotFoundException, IllegalAccessException {
         Optional<Post> posteoOptional = postrepository.findById(id);
 
         if(posteoOptional.isPresent()){
@@ -143,7 +175,10 @@ public class PostServiceI implements PostService {
                 Post postExistente = posteoOptional.get();
                 Patcher.postPatcher(postExistente, fields);
                 postrepository.save(postExistente);
-                return postExistente;
+                postResponse postr = new postResponse();
+                BeanUtils.copyProperties(postExistente, postr);
+                postr.setAdministrator_id(postExistente.getAdministrator().getId());
+
             }catch(IllegalAccessException e){
                 throw new IllegalAccessException("Issue trying to execute reflexivity in Post class");
             }
@@ -151,21 +186,22 @@ public class PostServiceI implements PostService {
             throw new postNotFoundException("there isn't a post with the id: " + id);
 
         }
+        return null;
     }
+
+
 
     @Override
-    public Page<Post> getAll( Pageable pageable){
-        return postrepository.findAll(pageable);
+    public String advertisePost(Long postId) throws postNotFoundException {
+        Optional<Post> post = postrepository.findById(postId);
+        if(post.isPresent()){
+            post.get().setFeatured(1);
+            postrepository.save(post.get());
+            return "The post was featured";
+        }else{
+            throw new postNotFoundException("There isn't a post with the indicate id");
+        }
     }
-
-
-
-
-
-
-
-
-
 
 
 }
