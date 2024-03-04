@@ -1,6 +1,7 @@
 package com.c1646njava.tuvivienda.services.abstraction;
 
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.entityCreationException;
+import com.c1646njava.tuvivienda.exceptions.PostExceptions.noTokenException;
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.post.DTO.FilterDTO;
 import com.c1646njava.tuvivienda.models.post.DTO.postRequest;
@@ -118,7 +119,7 @@ public interface PostService {
      */
     Page<postResponse> getAll(Pageable pageable);
 
-    String advertisePost(Long postId) throws postNotFoundException;
+    public String advertisePost(Long postId) throws postNotFoundException, noTokenException;
 
 
 

@@ -2,12 +2,18 @@ package com.c1646njava.tuvivienda.services.implementation;
 
 import com.c1646njava.tuvivienda.DTO.Patcher.Patcher;
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.entityCreationException;
+import com.c1646njava.tuvivienda.exceptions.PostExceptions.noTokenException;
 import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
+import com.c1646njava.tuvivienda.models.administrator.Administrator;
 import com.c1646njava.tuvivienda.models.post.DTO.*;
 import com.c1646njava.tuvivienda.models.post.Post;
+import com.c1646njava.tuvivienda.models.user.User;
 import com.c1646njava.tuvivienda.repositories.AdministratorRepository;
 import com.c1646njava.tuvivienda.repositories.PostRepository;
+import com.c1646njava.tuvivienda.repositories.UserRepository;
 import com.c1646njava.tuvivienda.services.abstraction.PostService;
+import com.c1646njava.tuvivienda.services.abstraction.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.beans.BeanUtils;
@@ -18,19 +24,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class PostServiceI implements PostService {
 
 
     private PostRepository postrepository;
     private Patcher patcher;
     private AdministratorRepository administratorRepository;
+    private UserRepository userRepository;
 
-
-    public PostServiceI(PostRepository postrepository, Patcher patcher, AdministratorRepository administratorRepository) {
-        this.postrepository = postrepository;
-        this.patcher = patcher;
-        this.administratorRepository = administratorRepository;
-    }
 
     @Override
     public List<postResponse> searchByLocation(String address) throws postNotFoundException {
@@ -189,19 +191,32 @@ public class PostServiceI implements PostService {
         return null;
     }
 
-
-
-    @Override
-    public String advertisePost(Long postId) throws postNotFoundException {
-        Optional<Post> post = postrepository.findById(postId);
-        if(post.isPresent()){
-            post.get().setFeatured(1);
-            postrepository.save(post.get());
-            return "The post was featured";
-        }else{
-            throw new postNotFoundException("There isn't a post with the indicate id");
+    public String advertisePost(Long postId) throws postNotFoundException, noTokenException {
+        Optional<Post> postOptional = postrepository.findById(postId);
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            if (post.getFeatured() == 1) {
+                return "The post is already featured";
+            } else {
+                Optional<User> userOptional = userRepository.findById(post.getAdministrator().getUser().getId());
+                if (userOptional.isPresent()) {
+                    User user = userOptional.get();
+                    if (user.getAdvertisingToken() == 0) {
+                        throw new noTokenException("The user has no advertising tokens left");
+                    } else {
+                        user.setAdvertisingToken(user.getAdvertisingToken() - 1);
+                        post.setFeatured(1);
+                        postrepository.save(post);
+                        userRepository.save(user);
+                        return "The post has been featured";
+                    }
+                } else {
+                    throw new postNotFoundException("User not found for the post");
+                }
+            }
+        } else {
+            throw new postNotFoundException("The post was not found");
         }
+
     }
-
-
 }

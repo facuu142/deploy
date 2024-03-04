@@ -52,6 +52,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     }
 
+    @ExceptionHandler(noTokenException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<errorMessage> handleNoTokenException(noTokenException exception){
+        errorMessage mensaje = new errorMessage(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
+
+    }
 
 
 }

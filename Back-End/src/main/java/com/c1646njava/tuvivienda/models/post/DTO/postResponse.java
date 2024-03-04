@@ -30,5 +30,4 @@ public class postResponse{
     private List<ImagePost> images;
     private int featured;
     private Long administrator_id;
-    private List<comment> comments;
 }

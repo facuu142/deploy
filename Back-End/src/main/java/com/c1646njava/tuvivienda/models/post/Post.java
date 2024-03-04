@@ -95,6 +95,7 @@ public class Post extends createdDate{
     @JoinColumn(name = "administrator_id", referencedColumnName = "id")
     private Administrator administrator;
 
+    @JsonBackReference
     //comment feature
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     private List<comment> comments = null;
