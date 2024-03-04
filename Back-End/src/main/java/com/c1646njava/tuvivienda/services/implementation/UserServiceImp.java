@@ -1,6 +1,6 @@
 package com.c1646njava.tuvivienda.services.implementation;
 
-import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.administrator.Administrator;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
@@ -8,13 +8,8 @@ import com.c1646njava.tuvivienda.models.user.dto.RequestUser;
 import com.c1646njava.tuvivienda.repositories.AdministratorRepository;
 import com.c1646njava.tuvivienda.repositories.PostRepository;
 import com.c1646njava.tuvivienda.repositories.UserRepository;
-import io.jsonwebtoken.Jwt;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import com.c1646njava.tuvivienda.services.abstraction.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

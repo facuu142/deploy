@@ -2,14 +2,12 @@ package com.c1646njava.tuvivienda.controllers;
 
 import com.c1646njava.tuvivienda.models.image.Image;
 import com.c1646njava.tuvivienda.models.image.ImageUser;
-import com.c1646njava.tuvivienda.models.image.dto.Mensaje;
+import com.c1646njava.tuvivienda.models.image.DTO.Mensaje;
 import com.c1646njava.tuvivienda.models.user.User;
-import com.c1646njava.tuvivienda.models.user.dto.RequestUser;
 import com.c1646njava.tuvivienda.repositories.ImageRepository;
 import com.c1646njava.tuvivienda.repositories.ImageUserRepository;
 import com.c1646njava.tuvivienda.repositories.UserRepository;
 import com.c1646njava.tuvivienda.services.implementation.CloudinaryServiceImp;
-import com.c1646njava.tuvivienda.services.implementation.ImageServiceImp;
 import com.c1646njava.tuvivienda.services.implementation.ImageUserServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,10 +1,9 @@
 package com.c1646njava.tuvivienda.services.implementation;
 
-import com.c1646njava.tuvivienda.DTO.Patcher.Patcher;
-import com.c1646njava.tuvivienda.exceptions.PostExceptions.entityCreationException;
-import com.c1646njava.tuvivienda.exceptions.PostExceptions.noTokenException;
-import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
-import com.c1646njava.tuvivienda.models.administrator.Administrator;
+import com.c1646njava.tuvivienda.models.post.Patcher.Patcher;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.entityCreationException;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.noTokenException;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.post.DTO.*;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
@@ -12,13 +11,13 @@ import com.c1646njava.tuvivienda.repositories.AdministratorRepository;
 import com.c1646njava.tuvivienda.repositories.PostRepository;
 import com.c1646njava.tuvivienda.repositories.UserRepository;
 import com.c1646njava.tuvivienda.services.abstraction.PostService;
-import com.c1646njava.tuvivienda.services.abstraction.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -206,6 +205,7 @@ public class PostServiceI implements PostService {
                     } else {
                         user.setAdvertisingToken(user.getAdvertisingToken() - 1);
                         post.setFeatured(1);
+                        post.setFeaturedDate(LocalDate.now());
                         postrepository.save(post);
                         userRepository.save(user);
                         return "The post has been featured";
@@ -219,4 +219,14 @@ public class PostServiceI implements PostService {
         }
 
     }
+
+
+    public List<Post> getAllFeaturedPost(){
+        return postrepository.findByFeaturedEquals(1);
+    }
+
+
+
+
+
 }

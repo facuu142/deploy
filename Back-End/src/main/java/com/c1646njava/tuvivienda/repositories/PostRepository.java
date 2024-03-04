@@ -25,8 +25,9 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
     @Query("SELECT p FROM Post p WHERE p.price >= :priceLow AND p.price <= :PriceHigh")
     List<Post>  searchByPrice(Long priceLow, Long PriceHigh);
 
-    @Query("SELECT p.administrator.user.advertisingToken FROM Post p WHERE p.id = :postId")
-    int findUserTokens(Long postId);
+
+    List<Post> findByFeaturedEquals(int featured);
+
 }
 
 

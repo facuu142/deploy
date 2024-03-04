@@ -1,6 +1,6 @@
 package com.c1646njava.tuvivienda.controllers;
 
-import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.comment.DTO.commentRequest;
 import com.c1646njava.tuvivienda.models.comment.comment;
 import org.springframework.data.domain.Pageable;

@@ -1,5 +1,6 @@
 package com.c1646njava.tuvivienda.models.post;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +101,8 @@ public class Post extends createdDate{
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     private List<comment> comments = null;
 
-
+    @Column(name = "featuredDate")
+    private LocalDate featuredDate = null;
 
 
 

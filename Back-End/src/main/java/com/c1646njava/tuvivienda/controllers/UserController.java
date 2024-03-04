@@ -1,8 +1,7 @@
 package com.c1646njava.tuvivienda.controllers;
 
-import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.administrator.Administrator;
-import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
 import com.c1646njava.tuvivienda.models.user.dto.RequestLogin;
 import com.c1646njava.tuvivienda.models.user.dto.RequestUser;
@@ -15,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
-import javax.validation.constraints.NotEmpty;
 
 @RestController
 @RequestMapping("/user")
@@ -84,6 +82,8 @@ public class UserController {
         return ResponseEntity.ok(userServiceImp.isAdmin(postId,userId));
 
     }
+
+
 
 
 }

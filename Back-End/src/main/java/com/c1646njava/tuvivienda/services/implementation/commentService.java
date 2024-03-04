@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import com.c1646njava.tuvivienda.repositories.commentRepository;
 import com.c1646njava.tuvivienda.models.comment.DTO.commentMapper;
-import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.postNotFoundException;
 
 import javax.naming.AuthenticationException;
 import java.util.Optional;
