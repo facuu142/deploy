@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import RegisterForm from "./RegisterForm";
 import { HomeContext } from "../../../context/HomeContext";
+import { Link } from "react-router-dom";
 
 const initialLoginForm = {
   email: "",
@@ -110,17 +111,17 @@ const LoginForm = () => {
 
         <p className="m-2 text-sm w-full text-center">
           No tengo una cuenta,
-          <a
+          <Link
             className="text-sky-500 hover:text-sky-800 ml-1"
-            href="#"
-            onClick={homeHookData.handlerRegisterOpen}
+            to="/register"
+            /* onClick={homeHookData.handlerModalOpen} */
           >
             Registrarme.
-          </a>
+          </Link>
         </p>
       </form>
 
-      <RegisterForm />
+
     </div>
   );
 };

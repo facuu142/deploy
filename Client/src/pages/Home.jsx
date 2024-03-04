@@ -1,7 +1,7 @@
-import CardItem from "./cards/CardItem";
-import SearchBar from "./SearchBar";
+import CardItem from "../feature/components/cards/CardItem";
+import SearchBar from "../feature/components/SearchBar";
 import { useEffect } from "react";
-import usePost from "../../hooks/usePost";
+import usePost from "../hooks/usePost";
 
 
 const Home = () => {
