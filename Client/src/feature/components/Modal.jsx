@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { HomeContext } from "../../context/HomeContext";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import Chat from "./chat/Chat";
+import Chat from "./Chat";
 
 const Modal = () => {
   const { homeHookData } = useContext(HomeContext);

@@ -1,7 +1,5 @@
 import NavBar from "./feature/components/NavBar";
-//import RegisterForm from "./feature/components/forms/RegisterForm"
 import SideBar from "./feature/components/SideBar";
-//import SearchBar from "./feature/components/SearchBar";
 import Modal from "./feature/components/Modal";
 import Home from "./pages/Home";
 
