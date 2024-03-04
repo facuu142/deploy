@@ -1,5 +1,6 @@
 package com.c1646njava.tuvivienda.controllers;
 
+import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.administrator.Administrator;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
@@ -77,4 +78,12 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upgrade user");
         }
     }
+
+    @GetMapping("/adminverify")
+    public ResponseEntity<Boolean> verifyAdmin(@RequestParam(name = "postId") Long postId, @RequestParam(name = "userId") Long userId) throws postNotFoundException {
+        return ResponseEntity.ok(userServiceImp.isAdmin(postId,userId));
+
+    }
+
+
 }

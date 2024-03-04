@@ -1,5 +1,6 @@
 package com.c1646njava.tuvivienda.services.implementation;
 
+import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.administrator.Administrator;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.naming.AuthenticationException;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -152,6 +154,14 @@ public class UserServiceImp implements UserService {
         if(country.isBlank()){
             throw new IllegalArgumentException("The user must have a country");
         }
+    }
+
+    //Verify if a user is admin of a post
+
+    public Boolean isAdmin(Long postId, Long userId) throws postNotFoundException {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new postNotFoundException("there is not post with the id"));
+        return Objects.equals(post.getAdministrator().getUser().getId(), userId);
+
     }
 
 
