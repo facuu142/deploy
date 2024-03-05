@@ -1,6 +1,6 @@
 package com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions;
 
-import com.c1646njava.tuvivienda.models.user.exceptions.DTO.Errors.errorMessage;
+import com.c1646njava.tuvivienda.models.user.dto.errorMessage;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

@@ -73,7 +73,7 @@ public class Post extends createdDate{
     @Column(name="state")
     private String state;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<ImagePost> image;
 
 

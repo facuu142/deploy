@@ -106,32 +106,32 @@ public class PostServiceI implements PostService {
         return postr;
     }
 
-    public postResponse crearPost(postRequest post) throws entityCreationException{
+    public postResponse crearPost(postRequest post) throws entityCreationException {
         Post postc = new Post();
-        BeanUtils.copyProperties(post,postc,"adminId");
+        BeanUtils.copyProperties(post, postc, "adminId");
         postc.setAdministrator(administratorRepository.findById(post.adminId()).get());
         postc.setFav(null);
         Post postv = postrepository.save(postc);
 
-        if(postv == null){
+        if (postv == null) {
             throw new entityCreationException("The post was not save correctly");
-        }else{
+        } else {
             postResponse postr = new postResponse();
             BeanUtils.copyProperties(postv, postr);
             postr.setAdministrator_id(postv.getAdministrator().getId());
             return postr;
         }
-
     }
+
 
     @Override
     public postResponse findById(Long id) throws postNotFoundException {
         Optional<Post> posteo = postrepository.findById(id);
         if(posteo.isPresent()){
             postResponse postr = new postResponse();
-            BeanUtils.copyProperties(posteo.get(), postr);
+            BeanUtils.copyProperties(posteo.get(), postr, "image");
+            postr.setImages(posteo.get().getImage());
             postr.setAdministrator_id(posteo.get().getAdministrator().getId());
-
             return postr;
         }else{
             throw new postNotFoundException("there isn't a post with the id: " + id);

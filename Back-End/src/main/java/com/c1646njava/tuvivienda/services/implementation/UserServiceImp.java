@@ -41,11 +41,6 @@ public class UserServiceImp implements UserService {
 
     }
 
-    //comment Feature
-    @Transactional(readOnly = true)
-    public User getCurrentUser(Long userId) {
-        return userRepository.findById(userId).get();
-    }
 
     @Override
     public User loginUser(String email, String password) throws AuthenticationException {
@@ -160,6 +155,8 @@ public class UserServiceImp implements UserService {
     }
 
 
+    public User getCurrentUser(Long aLong) throws postNotFoundException {
+        return  userRepository.findById(aLong).orElseThrow(() -> new postNotFoundException("there is not a user with the specified id"));
 
-
+    }
 }

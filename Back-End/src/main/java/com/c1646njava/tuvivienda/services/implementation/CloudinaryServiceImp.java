@@ -32,6 +32,7 @@ public Map upload(MultipartFile multipartFile) throws IOException {
     file.delete();
     return  result;
 }
+
 public Map delete(String id) throws IOException {
     Map result = cloudinary.uploader().destroy(id, ObjectUtils.emptyMap());
     return result;
