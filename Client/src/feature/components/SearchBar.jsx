@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HomeContext } from "../../context/HomeContext";
 
 const SearchBar = () => {
-  const { homeHookData } = useContext(HomeContext);
-
+  const { homeHookData, userHookData } = useContext(HomeContext);
+  const [loginStatus, setLoginStatus] = useState(userHookData.loginStatus)
 
   return (
     <div className="w-full sticky md:flex bg-gray-100 py-4 justify-center items-center md:space-x-4 px-2 space-y-2 md:space-y-0">
@@ -94,15 +94,6 @@ const SearchBar = () => {
           </button>
         </div>
       </form>
-
-      {/* PUBLISH PROPERTY */}
-      <Link
-        to={"/publish"}
-        onClick={homeHookData.handlerOpenSidebar}
-        className="px-4 py-3 rounded-md bg-cyan-700 text-white md:w-auto"
-      >
-        Publicar
-      </Link>
     </div>
   );
 };

@@ -56,8 +56,6 @@ const RegisterForm = () => {
       userHookData.handlerRegisterUser(registerForm);
       // clear data
       setRegisterForm(initialRegisterData);
-      // and close modal
-      homeHookData.handlerRegisterClose();
     } else {
       // checking for empty inputs
 
