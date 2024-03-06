@@ -50,6 +50,12 @@ public class User {
     @ManyToMany(mappedBy = "fav")
     private List<Post> fav = new ArrayList<>();
 
+    //advertise Post feature
+    @Column(name = "advertisingTokens")
+    private int advertisingToken;
+
+
+
     public User(RequestUser user){
         this.name = user.name();
         this.email = user.email();
@@ -57,11 +63,10 @@ public class User {
         this.avatar = (ImageUser) user.avatar();
         this.country = user.country();
         this.fav = new ArrayList<>();
+        this.advertisingToken = 2;
     }
 
-    //advertise Post feature
-    @Column(name = "advertisingTokens")
-    private int advertisingToken = 2;
+
 
 
 
