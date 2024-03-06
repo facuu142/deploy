@@ -59,6 +59,10 @@ public class User {
         this.fav = new ArrayList<>();
     }
 
+    //advertise Post feature
+    @Column(name = "advertisingTokens")
+    private int advertisingToken = 2;
+
 
 
 

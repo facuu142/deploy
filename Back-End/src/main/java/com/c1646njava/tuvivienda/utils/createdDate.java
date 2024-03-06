@@ -27,4 +27,6 @@ public abstract class createdDate implements Serializable {
     @Column(name = "lastModifiedDate")
     protected LocalDate lastModifiedDate;
 
+
+
 }

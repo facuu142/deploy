@@ -1,6 +1,6 @@
-package com.c1646njava.tuvivienda.exceptions.PostExceptions;
+package com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions;
 
-import com.c1646njava.tuvivienda.DTO.Errors.errorMessage;
+import com.c1646njava.tuvivienda.models.user.dto.errorMessage;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -52,6 +52,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     }
 
+    @ExceptionHandler(noTokenException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<errorMessage> handleNoTokenException(noTokenException exception){
+        errorMessage mensaje = new errorMessage(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensaje);
+
+    }
 
 
 }

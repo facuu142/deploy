@@ -1,7 +1,8 @@
 package com.c1646njava.tuvivienda.controllers;
 
-import com.c1646njava.tuvivienda.exceptions.PostExceptions.entityCreationException;
-import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.entityCreationException;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.noTokenException;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.post.DTO.FilterDTO;
 import com.c1646njava.tuvivienda.models.post.DTO.postRequest;
 import com.c1646njava.tuvivienda.models.post.DTO.postResponse;
@@ -39,11 +40,9 @@ public class PostController {
     }
 
     @PatchMapping("/advertise/{postId}")
-    public ResponseEntity<String> advertisePost(@PathVariable("postId") Long postId) throws postNotFoundException {
+    public ResponseEntity<String> advertisePost(@PathVariable("postId") Long postId) throws postNotFoundException, noTokenException {
         return ResponseEntity.ok(postservice.advertisePost(postId));
     }
-
-
 
     @GetMapping("/findByType/{type}")
     public ResponseEntity<List<postResponse>> searchByType(@PathVariable("type") String type) throws postNotFoundException{

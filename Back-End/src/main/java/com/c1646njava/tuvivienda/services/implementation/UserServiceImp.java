@@ -1,5 +1,6 @@
 package com.c1646njava.tuvivienda.services.implementation;
 
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.administrator.Administrator;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
@@ -7,17 +8,13 @@ import com.c1646njava.tuvivienda.models.user.dto.RequestUser;
 import com.c1646njava.tuvivienda.repositories.AdministratorRepository;
 import com.c1646njava.tuvivienda.repositories.PostRepository;
 import com.c1646njava.tuvivienda.repositories.UserRepository;
-import io.jsonwebtoken.Jwt;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import com.c1646njava.tuvivienda.services.abstraction.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.naming.AuthenticationException;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -44,11 +41,6 @@ public class UserServiceImp implements UserService {
 
     }
 
-    //comment Feature
-    @Transactional(readOnly = true)
-    public User getCurrentUser(Long userId) {
-        return userRepository.findById(userId).get();
-    }
 
     @Override
     public User loginUser(String email, String password) throws AuthenticationException {
@@ -154,7 +146,17 @@ public class UserServiceImp implements UserService {
         }
     }
 
+    //Verify if a user is admin of a post
+
+    public Boolean isAdmin(Long postId, Long userId) throws postNotFoundException {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new postNotFoundException("there is not post with the id"));
+        return Objects.equals(post.getAdministrator().getUser().getId(), userId);
+
+    }
 
 
+    public User getCurrentUser(Long aLong) throws postNotFoundException {
+        return  userRepository.findById(aLong).orElseThrow(() -> new postNotFoundException("there is not a user with the specified id"));
 
+    }
 }

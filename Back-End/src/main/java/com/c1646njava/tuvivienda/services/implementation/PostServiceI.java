@@ -1,36 +1,37 @@
 package com.c1646njava.tuvivienda.services.implementation;
 
-import com.c1646njava.tuvivienda.DTO.Patcher.Patcher;
-import com.c1646njava.tuvivienda.exceptions.PostExceptions.entityCreationException;
-import com.c1646njava.tuvivienda.exceptions.PostExceptions.postNotFoundException;
+import com.c1646njava.tuvivienda.models.post.Patcher.Patcher;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.entityCreationException;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.noTokenException;
+import com.c1646njava.tuvivienda.models.user.exceptions.PostExceptions.postNotFoundException;
 import com.c1646njava.tuvivienda.models.post.DTO.*;
 import com.c1646njava.tuvivienda.models.post.Post;
+import com.c1646njava.tuvivienda.models.user.User;
 import com.c1646njava.tuvivienda.repositories.AdministratorRepository;
 import com.c1646njava.tuvivienda.repositories.PostRepository;
+import com.c1646njava.tuvivienda.repositories.UserRepository;
 import com.c1646njava.tuvivienda.services.abstraction.PostService;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class PostServiceI implements PostService {
 
 
     private PostRepository postrepository;
     private Patcher patcher;
     private AdministratorRepository administratorRepository;
+    private UserRepository userRepository;
 
-
-    public PostServiceI(PostRepository postrepository, Patcher patcher, AdministratorRepository administratorRepository) {
-        this.postrepository = postrepository;
-        this.patcher = patcher;
-        this.administratorRepository = administratorRepository;
-    }
 
     @Override
     public List<postResponse> searchByLocation(String address) throws postNotFoundException {
@@ -105,32 +106,32 @@ public class PostServiceI implements PostService {
         return postr;
     }
 
-    public postResponse crearPost(postRequest post) throws entityCreationException{
+    public postResponse crearPost(postRequest post) throws entityCreationException {
         Post postc = new Post();
-        BeanUtils.copyProperties(post,postc,"adminId");
+        BeanUtils.copyProperties(post, postc, "adminId");
         postc.setAdministrator(administratorRepository.findById(post.adminId()).get());
         postc.setFav(null);
         Post postv = postrepository.save(postc);
 
-        if(postv == null){
+        if (postv == null) {
             throw new entityCreationException("The post was not save correctly");
-        }else{
+        } else {
             postResponse postr = new postResponse();
             BeanUtils.copyProperties(postv, postr);
             postr.setAdministrator_id(postv.getAdministrator().getId());
             return postr;
         }
-
     }
+
 
     @Override
     public postResponse findById(Long id) throws postNotFoundException {
         Optional<Post> posteo = postrepository.findById(id);
         if(posteo.isPresent()){
             postResponse postr = new postResponse();
-            BeanUtils.copyProperties(posteo.get(), postr);
+            BeanUtils.copyProperties(posteo.get(), postr, "image");
+            postr.setImages(posteo.get().getImage());
             postr.setAdministrator_id(posteo.get().getAdministrator().getId());
-
             return postr;
         }else{
             throw new postNotFoundException("there isn't a post with the id: " + id);
@@ -189,19 +190,43 @@ public class PostServiceI implements PostService {
         return null;
     }
 
-
-
-    @Override
-    public String advertisePost(Long postId) throws postNotFoundException {
-        Optional<Post> post = postrepository.findById(postId);
-        if(post.isPresent()){
-            post.get().setFeatured(1);
-            postrepository.save(post.get());
-            return "The post was featured";
-        }else{
-            throw new postNotFoundException("There isn't a post with the indicate id");
+    public String advertisePost(Long postId) throws postNotFoundException, noTokenException {
+        Optional<Post> postOptional = postrepository.findById(postId);
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            if (post.getFeatured() == 1) {
+                return "The post is already featured";
+            } else {
+                Optional<User> userOptional = userRepository.findById(post.getAdministrator().getUser().getId());
+                if (userOptional.isPresent()) {
+                    User user = userOptional.get();
+                    if (user.getAdvertisingToken() == 0) {
+                        throw new noTokenException("The user has no advertising tokens left");
+                    } else {
+                        user.setAdvertisingToken(user.getAdvertisingToken() - 1);
+                        post.setFeatured(1);
+                        post.setFeaturedDate(LocalDate.now());
+                        postrepository.save(post);
+                        userRepository.save(user);
+                        return "The post has been featured";
+                    }
+                } else {
+                    throw new postNotFoundException("User not found for the post");
+                }
+            }
+        } else {
+            throw new postNotFoundException("The post was not found");
         }
+
     }
+
+
+    public List<Post> getAllFeaturedPost(){
+        return postrepository.findByFeaturedEquals(1);
+    }
+
+
+
 
 
 }

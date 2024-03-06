@@ -1,5 +1,6 @@
 package com.c1646njava.tuvivienda.models.post;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +73,7 @@ public class Post extends createdDate{
     @Column(name="state")
     private String state;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<ImagePost> image;
 
 
@@ -95,11 +96,13 @@ public class Post extends createdDate{
     @JoinColumn(name = "administrator_id", referencedColumnName = "id")
     private Administrator administrator;
 
+    @JsonBackReference
     //comment feature
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     private List<comment> comments = null;
 
-
+    @Column(name = "featuredDate")
+    private LocalDate featuredDate = null;
 
 
 

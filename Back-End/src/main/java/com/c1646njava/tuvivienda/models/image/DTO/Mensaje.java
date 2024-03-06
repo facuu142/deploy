@@ -1,4 +1,4 @@
-package com.c1646njava.tuvivienda.models.image.dto;
+package com.c1646njava.tuvivienda.models.image.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
