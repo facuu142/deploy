@@ -3,7 +3,6 @@ import axios from "axios";
 const DB_URL = "http://localhost:8080/user";
 
 export const login = async ({ email, password }) => {
-  console.log("email from axios: ", email)
   try {
     return await axios.post(`${DB_URL}/login`, {
       email,

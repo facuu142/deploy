@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import RegisterForm from "./RegisterForm";
 import { HomeContext } from "../../../context/HomeContext";
 import { Link } from "react-router-dom";
 
@@ -9,7 +8,7 @@ const initialLoginForm = {
 };
 
 const LoginForm = () => {
-  const { homeHookData, userHookData } = useContext(HomeContext);
+  const { userHookData, homeHookData } = useContext(HomeContext);
   const [loginForm, setLoginForm] = useState(initialLoginForm);
   const { email, password } = loginForm;
 
@@ -30,9 +29,6 @@ const LoginForm = () => {
     let error = {}
     const emptyInputs = Object.keys(loginForm).filter(val => loginForm[val] === "")
 
-
-    console.log("user data: ", loginForm)
-
     if (emptyInputs.length > 0) {
       emptyInputs.map((val) => {
         error[val] = `El campo ${val} no puede ir vacio`
@@ -40,7 +36,10 @@ const LoginForm = () => {
 
       setErrors(error)
     }
-    else userHookData.handlerLoginUser(loginForm);
+    else {
+      userHookData.handlerLoginUser(loginForm)
+      homeHookData.handlerCloseSideBar()
+    }
   };
 
   return (
@@ -114,7 +113,6 @@ const LoginForm = () => {
           <Link
             className="text-sky-500 hover:text-sky-800 ml-1"
             to="/register"
-            /* onClick={homeHookData.handlerModalOpen} */
           >
             Registrarme.
           </Link>

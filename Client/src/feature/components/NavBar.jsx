@@ -4,9 +4,10 @@ import { BiMessageRoundedDots } from "react-icons/bi";
 import { BsPersonCircle } from "react-icons/bs";
 import { CgMenuRound } from "react-icons/cg";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HomeContext } from "../../context/HomeContext";
-import  logo  from "../../assets/Logo.svg"
+import logo from "../../assets/Logo.svg";
+import { MdOutlineAddToPhotos } from "react-icons/md";
 
 const sizeFont = "1.5rem";
 
@@ -27,14 +28,10 @@ const navItems = [
     icon: <CgMenuRound style={{ fontSize: sizeFont }} />,
     name: "settings",
   },
-  {
-    icon: <BsPersonCircle style={{ fontSize: sizeFont }} />,
-    name: "login",
-  },
 ];
 
 const NavBar = () => {
-  const { homeHookData } = useContext(HomeContext);
+  const { homeHookData, userHookData } = useContext(HomeContext);
 
   return (
     <>
@@ -43,7 +40,7 @@ const NavBar = () => {
       >
         <section className="flex items-center">
           <a href="./" className="flex">
-          <img className="size-12" src={logo} alt="tuvivienda logo"/>
+            <img className="size-12" src={logo} alt="tuvivienda logo" />
             {/* <h1 className="md:text-xl">
               <span className={`text-center text-blue-300 invisible md:visible top-5 pl-4`}>
                 TUVIVIENDA.com
@@ -52,19 +49,47 @@ const NavBar = () => {
           </a>
         </section>
         <section className="flex items-center rounded-full gap-4 justify-center">
-          {navItems.map((item) => {
-            return (
+          {userHookData.loginStatus.isAuth ? (
+            navItems.map((item) => {
+              return (
+                <Link
+                  key={item.name}
+                  to={`/${item.name}`}
+                  className=" text-blue-300 cursor-pointer"
+                  name={item.name}
+                  onClick={homeHookData.handlerOpenSidebar}
+                >
+                  <picture>{item.icon}</picture>
+                </Link>
+              );
+            })
+          ) : (
+            <>
               <Link
-              key={item.name}
-                to={`/${item.name}`}
+                to={`/login`}
                 className=" text-blue-300 cursor-pointer"
-                name={item.name}
+                name={"login"}
                 onClick={homeHookData.handlerOpenSidebar}
               >
-                <picture>{item.icon}</picture>
+                <picture>
+                  <BsPersonCircle style={{ fontSize: sizeFont }} />
+                </picture>
               </Link>
-            );
-          })}
+            </>
+          )}
+
+          {userHookData.isAdmin && (
+            <Link
+              to={`/publish`}
+              className=" text-blue-300 cursor-pointer"
+              name="publish"
+              onClick={homeHookData.handlerOpenSidebar}
+            >
+              <picture>
+                <MdOutlineAddToPhotos style={{ fontSize: sizeFont }} />
+              </picture>
+            </Link>
+          )}
         </section>
       </nav>
     </>
@@ -74,5 +99,5 @@ const NavBar = () => {
 export default NavBar;
 // Burger menu
 
-// SubMenu 
+// SubMenu
 // react
