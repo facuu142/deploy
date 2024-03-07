@@ -1,5 +1,7 @@
 #IMAGE
 FROM maven:3.8.5-openjdk-17 AS build
+# Establecer el directorio de trabajo
+WORKDIR /Back-End
 #JAR
 COPY . .
 #COMANDO DE INICIO
